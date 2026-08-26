@@ -1,0 +1,4 @@
+AIRTABLE_TOKEN=patXXXXXXXXXXXXXX.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+AIRTABLE_BASE_ID=appXXXXXXXXXXXXXX
+AIRTABLE_TABLE_NAME=Leads
+ALLOWED_ORIGIN=https://example.com

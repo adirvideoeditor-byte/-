@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>אדיר צאנה | יום צילום אחד — סרטונים אותנטיים לממומן ולאורגני</title>
+  <meta name="description" content="יום צילום אחד אצלך, 5 שעות, ציוד מקצועי מלא ותסריט שנבנה איתך בשיחה. יוצא מזה מחסן סרטונים אותנטיים לקמפיין הממומן ולאורגני. 1,499 ₪ — 5 מקומות בלבד.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <style>
+    /* שמות האייקונים מוסתרים עד שפונט הסמלים נטען, כדי שלא יוצג טקסט גולמי */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      visibility: hidden;
+    }
+    html.icons-ready .material-symbols-outlined { visibility: visible; }
+    .wrap { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: 20px; position: relative; z-index: 1; }
+    .hero-h1 { font-size: clamp(1.85rem, 5.6vw, 3rem); }
+    .h2-std { text-align:center; font-size: clamp(1.5rem, 4.6vw, 2.05rem); }
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 720px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .avatar-frame {
+      width: clamp(190px, 34vw, 280px); height: clamp(190px, 34vw, 280px); border-radius: 999px; margin: 0 auto;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--blue-deep), var(--violet), var(--pink));
+      box-shadow: 0 0 0 4px oklch(1 0 0 / 0.06), 0 0 40px -4px var(--glow);
+    }
+    .avatar-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── שורת מחיר מתחת ל-Hero ───────────────────────────────── */
+    .price-strip {
+      display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+      padding: 12px 22px; border-radius: 999px;
+      border: 1px solid var(--hairline); background: oklch(1 0 0 / 0.04);
+    }
+    .price-num {
+      font-family: 'Rubik', sans-serif; font-weight: 900;
+      font-size: clamp(1.3rem, 4.4vw, 1.75rem); letter-spacing: -0.01em;
+    }
+
+    /* ── מונה מקומות ─────────────────────────────────────────── */
+    .slots {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px; border-radius: 999px; font-size: 0.86rem; font-weight: 700;
+      color: var(--pink-soft); background: oklch(0.68 0.24 350 / 0.12);
+      border: 1px solid oklch(0.68 0.24 350 / 0.35);
+    }
+    .slots-dot {
+      width: 8px; height: 8px; border-radius: 999px; background: var(--pink);
+      animation: slotPulse 2.4s ease-out infinite;
+    }
+    @keyframes slotPulse {
+      0%   { box-shadow: 0 0 0 0 oklch(0.68 0.24 350 / 0.7); }
+      70%  { box-shadow: 0 0 0 9px oklch(0.68 0.24 350 / 0); }
+      100% { box-shadow: 0 0 0 0 oklch(0.68 0.24 350 / 0); }
+    }
+    @media (prefers-reduced-motion: reduce) { .slots-dot { animation: none; } }
+
+    /* ── הערת שקיפות ─────────────────────────────────────────── */
+    .note {
+      display: flex; gap: 12px; align-items: flex-start; margin: 26px auto 0; max-width: 62ch;
+      padding: 16px 18px; border-radius: var(--radius-sm);
+      background: oklch(1 0 0 / 0.035); border: 1px dashed var(--hairline);
+      color: var(--ink-dim); line-height: 1.65; font-size: 0.95rem;
+    }
+    .note strong { color: var(--ink); }
+
+    /* ── סרגל CTA דביק (נייד) ────────────────────────────────── */
+    .sticky-cta {
+      position: fixed; inset-inline: 0; bottom: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 11px 16px calc(11px + env(safe-area-inset-bottom));
+      background: oklch(0.17 0.048 288 / 0.93);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--hairline);
+      transform: translateY(110%); transition: transform .28s ease; visibility: hidden;
+    }
+    .sticky-cta.visible { transform: translateY(0); visibility: visible; }
+    .sticky-cta__price { font-family: 'Rubik', sans-serif; font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
+    .sticky-cta__sub {
+      display: block; font-family: 'Assistant', sans-serif; font-weight: 600;
+      font-size: 0.74rem; color: var(--pink-soft);
+    }
+    /* .btn-primary הוא width:100% + height:60px — בסרגל צריך כפתור צמוד */
+    .sticky-cta__price { flex: 1 1 auto; min-width: 0; }
+    .sticky-cta .btn-primary {
+      flex: 0 0 auto; width: auto; height: 46px;
+      margin: 0; padding: 0 20px; font-size: 0.95rem; white-space: nowrap;
+    }
+    .sticky-cta .btn-primary .material-symbols-outlined { font-size: 1.15em; }
+    @media (min-width: 900px) { .sticky-cta { display: none; } }
+  </style>
+  <script>
+    // מציג את האייקונים רק אחרי שפונט Material Symbols נטען בהצלחה.
+    // אם הוא נחסם או נכשל — עדיף שלא יוצג כלום מאשר המילה "movie" באמצע הדף.
+    (function () {
+      var root = document.documentElement;
+      function show() { root.classList.add('icons-ready'); }
+      if (!document.fonts || !document.fonts.load) { show(); return; }
+      document.fonts.load('24px "Material Symbols Outlined"')
+        .then(function (faces) { if (faces.length) show(); })
+        .catch(function () {});
+    })();
+  </script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="brand-name">
+      <span class="material-symbols-outlined">videocam</span>
+      אדיר צאנה
+    </span>
+    <a href="#lead" class="btn-ghost">
+      <span class="material-symbols-outlined" style="font-size:1.1em;">arrow_back</span>
+      לתפוס מקום
+    </a>
+  </div>
+</div>
+
+<main class="wrap" style="padding-top: clamp(36px, 7vw, 68px); padding-bottom: 64px;">
+
+  <!-- Badge -->
+  <div class="rise" style="text-align:center; margin-bottom: 24px;">
+    <span class="badge">
+      <span class="material-symbols-outlined">auto_awesome</span>
+      יום צילום · 5 מקומות בלבד
+    </span>
+  </div>
+
+  <!-- Hero -->
+  <header class="rise d1" style="text-align:center; max-width: 680px; margin-inline:auto;">
+    <h1 class="hero-h1" style="color: var(--ink);">
+      יום צילום אחד — ואתה יכול לשנות את <span class="brand-grad">כל השיווק שלך</span>
+    </h1>
+    <div style="width:120px; height:4px; border-radius:999px; margin: 22px auto 0;
+                background: linear-gradient(90deg, var(--blue), var(--violet), var(--pink));
+                box-shadow: 0 0 18px var(--glow);"></div>
+  </header>
+
+  <p class="rise d2 measure" style="text-align:center; font-size: clamp(1.02rem, 3.4vw, 1.2rem);
+        color: var(--ink-dim); line-height: 1.7; margin: 26px auto 0;">
+    5 שעות אצלך, ותסריט שנבנה איתך בשיחה — לא טקסט לשנן. אנחנו לא באים לצלם עוד סרטון
+    תדמית שנראה כמו של כולם; אנחנו מחפשים את הזווית שאף אחד בתחום שלך עוד לא עשה, ומצלמים
+    אותה. יוצא מזה מחסן חומרים לחודשיים קדימה — לממומן ולאורגני.
+  </p>
+
+  <!-- 3 benefits row -->
+  <div class="rise d3" style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+        gap: 14px 22px; margin-top: 36px;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span class="material-symbols-outlined ficon ficon--sm">event</span>
+      <span style="font-weight:700;">יום אחד · 5 שעות</span>
+    </div>
+    <span class="vrule" style="height:26px;"></span>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span class="material-symbols-outlined ficon ficon--sm ficon--blue">bolt</span>
+      <span style="font-weight:700;">לממומן ולאורגני</span>
+    </div>
+    <span class="vrule" style="height:26px;"></span>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span class="material-symbols-outlined ficon ficon--sm">movie</span>
+      <span style="font-weight:700;">עשרות קליפים ביד</span>
+    </div>
+  </div>
+
+  <!-- Price strip -->
+  <div class="rise d3" style="text-align:center; margin-top: 28px;">
+    <span class="price-strip">
+      <span class="price-num brand-grad">1,499 ₪</span>
+      <span class="vrule" style="height:22px;"></span>
+      <span style="color: var(--ink-dim); font-size:0.95rem;">אני מגיע אליך · מחוז מרכז · ללא דמי נסיעה</span>
+    </span>
+  </div>
+
+  <!-- Hero lead form -->
+  <section id="hero-form" class="rise d4" style="margin-top: 40px;">
+    <div class="panel panel--glow" style="padding: clamp(24px, 5vw, 40px);">
+      <form class="lead-form" novalidate style="display:flex; flex-direction:column; gap:16px;">
+        <input type="text" name="honeypot" tabindex="-1" autocomplete="off"
+               style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;" aria-hidden="true">
+        <div class="field-group">
+          <label class="field-label" for="hero-name">שם מלא</label>
+          <div class="input-wrap">
+            <input id="hero-name" name="name" type="text" autocomplete="name"
+                   placeholder="שם מלא" class="field field--icon">
+            <span class="material-symbols-outlined input-icon">person</span>
+          </div>
+          <p class="form-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="hero-phone">מספר טלפון</label>
+          <div class="input-wrap">
+            <input id="hero-phone" name="phone" type="tel" autocomplete="tel"
+                   placeholder="050-000-0000" class="field field--icon ltr">
+            <span class="material-symbols-outlined input-icon">call</span>
+          </div>
+          <p class="form-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="hero-business">מה העסק שלך?</label>
+          <div class="input-wrap">
+            <input id="hero-business" name="business" type="text"
+                   placeholder="קליניקה / קבלן / חנות / יועץ..." class="field field--icon">
+            <span class="material-symbols-outlined input-icon">storefront</span>
+          </div>
+          <p class="form-error"></p>
+        </div>
+
+        <button type="submit" class="btn-primary" style="margin-top: 6px;">
+          <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+          <span class="btn-label">אני רוצה יום צילום</span>
+        </button>
+
+        <p style="text-align:center; font-size:0.78rem; color: var(--ink-faint); margin-top:-6px;">
+          ללא התחייבות · בשליחת הטופס אתה מסכים ל<a href="privacy.html">מדיניות הפרטיות</a> באתר.
+        </p>
+      </form>
+
+      <div class="lead-success" style="text-align:center; padding: 16px 0; display:none;">
+        <span class="material-symbols-outlined ficon">check_circle</span>
+        <h3 style="margin: 14px 0 6px;">קיבלתי!</h3>
+        <p style="color: var(--ink-dim);">חוזר אליך היום עם תאריכים פנויים.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain section -->
+  <section class="panel" style="margin-top: 56px; padding: clamp(26px, 5vw, 44px);">
+    <h2 class="h2-std" style="margin-bottom: 20px;">
+      הבעיה שלך היא לא שאין לך <span class="brand-grad">מה להגיד</span>.
+    </h2>
+
+    <p class="measure" style="text-align:center; color: var(--ink-dim); line-height:1.75; font-size:1.02rem;">
+      אתה מסביר את זה מצוין בפגישה. הלקוחות יוצאים משוכנעים, סוגרים, וממליצים עליך הלאה. אבל
+      ברגע שצריך שזה יופיע בסרטון — הכל נתקע. וכל חודש שעובר, מתחרה פחות טוב ממך צובר עוד קהל,
+      כי הוא פשוט מצלם.
+    </p>
+
+    <h3 style="text-align:center; margin: 34px 0 22px; font-size: clamp(1.15rem, 3.6vw, 1.4rem); color: var(--pink-soft);">
+      ואז מתחיל הסיוט:
+    </h3>
+
+    <ul style="list-style:none; margin:0 auto; padding:0; max-width: 560px; display:flex; flex-direction:column; gap:16px;">
+      <li style="display:flex; gap:14px; align-items:flex-start;">
+        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">schedule</span></span>
+        <span style="line-height:1.6; color: var(--ink-dim);">
+          אתה מעמיד חצובה בסלון ב-22:00 בלילה, כי זה הזמן היחיד שנשאר.
+        </span>
+      </li>
+      <li style="display:flex; gap:14px; align-items:flex-start;">
+        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">mic</span></span>
+        <span style="line-height:1.6; color: var(--ink-dim);">
+          ומקריא טקסט משונן שלא נשמע כמוך בכלל. אתה שומע את זה — וגם הצופה שומע.
+        </span>
+      </li>
+      <li style="display:flex; gap:14px; align-items:flex-start;">
+        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">hourglass_bottom</span></span>
+        <span style="line-height:1.6; color: var(--ink-dim);">
+          כל פעם מתחילים מאפס: לתאם, להתלבש, לחשוב מה להגיד, לגלות שהתאורה גרועה ושהמיקרופון
+          קלט את המזגן.
+        </span>
+      </li>
+      <li style="display:flex; gap:14px; align-items:flex-start;">
+        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">trending_down</span></span>
+        <span style="line-height:1.6; color: var(--ink-dim);">
+          והתוצאה? הקמפיין הממומן רץ על קריאייטיב חובבני, הפרופיל האורגני שלך ריק, והלידים
+          ממשיכים להתווכח איתך על מחיר — כי שום דבר לא שידר שאתה שווה יותר.
+        </span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Authority / intro -->
+  <section class="rise" style="margin-top: 56px; max-width: 680px; margin-inline:auto;">
+    <h2 class="h2-std" style="margin-bottom: 28px;">
+      הגיע הזמן להפסיק <span class="brand-grad">לצלם את עצמך</span>
+    </h2>
+
+    <div class="avatar-frame" style="margin-bottom: 24px;">
+      <img src="adir.webp" alt="אדיר צאנה" width="280" height="280">
+    </div>
+
+    <p style="text-align:center; color: var(--ink-dim); line-height:1.8; font-size:1.05rem;">
+      קוראים לי אדיר צאנה, ואני לא מוכר לך חבילה חודשית, לא ריטיינר ולא התחייבות.
+      אני מוכר לך <strong style="color:var(--ink);">יום אחד</strong>.
+    </p>
+
+    <p style="text-align:center; color: var(--ink-dim); line-height:1.8; font-size:1.02rem; margin-top: 18px;">
+      אני מגיע אליך עם מצלמה, עדשות, תאורה ומיקרופון. לפני כן יושבים 45 דקות ובונים תסריט —
+      לא כדי שתשנן אותו, אלא כדי ששנינו נדע לאן אנחנו הולכים. ביום עצמו אנחנו פשוט מדברים:
+      אני שואל, אתה עונה, ואני שולף ממך את המשפטים שאתה אומר ללקוחות ממילא כל יום.
+    </p>
+
+    <p style="text-align:center; color: var(--ink-dim); line-height:1.8; font-size:1.02rem; margin-top: 18px;">
+      זה כל הסוד של סרטון אותנטי — <strong style="color:var(--ink);">הוא לא נכתב, הוא נאמר</strong>.
+      ומשם אנחנו הולכים למקום שאף אחד בתחום שלך לא הולך אליו: לא עוד סרטון תדמית עם מוזיקה
+      גנרית ולוגו בסוף, אלא הזווית שתגרום לאנשים לעצור את האצבע. אותנטי ושונה — זה מה שעובד
+      היום, גם בקריאייטיב ממומן וגם בפיד האורגני.
+    </p>
+  </section>
+
+  <!-- Package -->
+  <section class="panel" style="margin-top: 56px; padding: clamp(28px, 5vw, 46px);">
+    <h2 class="h2-std" style="margin-bottom: 8px;">
+      מה נכנס ל<span class="brand-grad">יום הצילום</span>
+    </h2>
+    <p style="text-align:center; color: var(--ink-faint); margin: 8px 0 34px;">יום אחד. 1,499 ₪. זה הכל.</p>
+
+    <div class="grid-3">
+      <div class="panel" style="padding: 26px 22px; text-align:center;">
+        <span class="material-symbols-outlined ficon ficon--blue">forum</span>
+        <p style="margin: 16px 0 0; color: var(--ink-dim); line-height:1.65;">
+          <strong style="color: var(--ink);">שיחת תסריט לפני היום (45 דק'):</strong>
+          אני שואל, אתה מדבר, ואני מנסח. אתה מגיע ליום הצילום עם דף ביד ועם ראש נקי — בלי לשנן,
+          בלי להילחץ.
+        </p>
+      </div>
+      <div class="panel" style="padding: 26px 22px; text-align:center;">
+        <span class="material-symbols-outlined ficon">bolt</span>
+        <p style="margin: 16px 0 0; color: var(--ink-dim); line-height:1.65;">
+          <strong style="color: var(--ink);">5 שעות צילום, 3 סטים:</strong>
+          ישיבה (הסבר עומק לאורגני), עמידה (מסר ישיר ואנכי — קריאייטיב לממומן) ותזוזתי (הליכה,
+          הדגמות, צילומי רקע). ציוד מקצועי מלא. חומר אחד שמזין את שני הערוצים.
+        </p>
+      </div>
+      <div class="panel" style="padding: 26px 22px; text-align:center;">
+        <span class="material-symbols-outlined ficon ficon--blue">shield</span>
+        <p style="margin: 16px 0 0; color: var(--ink-dim); line-height:1.65;">
+          <strong style="color: var(--ink);">כל החומרים שלך תוך 48 שעות:</strong>
+          תיקייה משותפת בענן ובתוכה <strong style="color: var(--ink);">מפת חומרים</strong> —
+          קובץ שמסביר מה יש בכל קליפ. מעביר לקמפיינר או לעורך שלך, והם יודעים בדיוק מה לעשות.
+        </p>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="material-symbols-outlined" style="color: var(--pink-soft); font-size:1.4rem;">info</span>
+      <span>
+        <strong>זו הצעת צילום בלבד — בלי עריכה.</strong>
+        בדיוק בגלל זה זה עולה 1,499 ולא 8,000. אתה יוצא עם חומר גלם מסודר ומתועד, לא עם סרטון ערוך.
+        רוצה שאערוך? נדבר על זה רק אחרי שראית את החומרים — בלי התחייבות ובלי שיחת מכירה.
+      </span>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section style="margin-top: 60px;">
+    <h2 class="h2-std" style="margin-bottom: 26px; display:flex; align-items:center; justify-content:center; gap:10px;">
+      <span class="material-symbols-outlined ficon ficon--sm">favorite</span>
+      מה הלקוחות אומרים
+    </h2>
+    <div class="shorts-row">
+      <div class="short-card">
+        <div class="short-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/zisXCnTTuIY" title="עדות לקוח 1" loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="short-label">עדות לקוח</div>
+      </div>
+      <div class="short-card">
+        <div class="short-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/PSlmWC5su2I" title="עדות לקוח 2" loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="short-label">עדות לקוח</div>
+      </div>
+      <div class="short-card">
+        <div class="short-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/tPPMLNYJPEo" title="עדות לקוח 3" loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="short-label">עדות לקוח</div>
+      </div>
+      <div class="short-card">
+        <div class="short-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/tXWfipS-_YU" title="עדות לקוח 4" loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="short-label">עדות לקוח</div>
+      </div>
+      <div class="short-card">
+        <div class="short-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/i5ruP2Zhjz0" title="עדות לקוח 5" loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="short-label">עדות לקוח</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guarantee + scarcity -->
+  <section class="panel panel--glow" style="margin-top: 60px; padding: clamp(28px, 5vw, 46px); text-align:center;">
+    <span class="material-symbols-outlined ficon" style="font-size:2.8rem;">verified_user</span>
+    <h2 class="h2-std" style="margin: 18px 0 22px;">
+      לא אהבת את יום הצילום? <span class="brand-grad">קח את הכסף חזרה.</span>
+    </h2>
+
+    <p class="measure" style="color: var(--ink-dim); line-height:1.8; font-size:1.02rem;">
+      יום הצילום הזה הוא מוצר חדש שלי, ואני פותח אותו ל-<strong style="color:var(--ink);">5 עסקים בלבד</strong>.
+      הם יהיו הקייס סטאדי שלי — ולכן הם משלמים 1,499 ₪, ולא את מה שזה יעלה אחרי.
+    </p>
+
+    <p class="measure" style="color: var(--ink-dim); line-height:1.8; font-size:1.02rem; margin-top: 18px;">
+      ובגלל שאני מבקש ממך לקחת סיכון על משהו חדש — אני לוקח את כולו על עצמי:
+      בסוף 5 השעות, אם אתה אומר לי שזה לא זה — אני מחזיר לך את כל הכסף באותו הרגע.
+      בלי טפסים, בלי דיונים, ובלי "בוא ננסה עוד פעם".
+    </p>
+
+    <p class="brand-grad" style="font-family:'Rubik',sans-serif; font-weight:800; font-size: clamp(1.15rem, 3.6vw, 1.5rem); margin-top: 26px;">
+      בלי שאלות. כל הסיכון עליי.
+    </p>
+
+    <!-- ⚠️ לעדכן ידנית אחרי כל מכירה (גם בסרגל הדביק למטה) -->
+    <div style="margin-top: 26px;">
+      <span class="slots">
+        <span class="slots-dot"></span>
+        נותרו 5 מתוך 5 מקומות
+      </span>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section id="lead" style="margin-top: 64px; position: relative;">
+    <div class="panel panel--glow" style="padding: clamp(30px, 6vw, 52px);">
+      <div style="text-align:center; margin-bottom: 26px;">
+        <h2 style="font-size: clamp(1.55rem, 5vw, 2.15rem);">
+          מוכן לצאת עם מחסן סרטונים אותנטיים — ביום אחד?
+        </h2>
+        <p style="margin: 14px 0 0; color: var(--ink-dim); line-height:1.7;">
+          השאר פרטים ואני חוזר אליך היום. נדבר 10 דקות, נראה מה יש לך לצלם, ואם יש מספיק —
+          נתאם תאריך. <strong style="color:var(--ink);">אין שיחת מכירה</strong> — אם אני חושב
+          שאין לנו מספיק חומר ליום מלא, אני אגיד לך את זה בעצמי.
+        </p>
+      </div>
+
+      <form class="lead-form" novalidate style="display:flex; flex-direction:column; gap:16px;">
+        <input type="text" name="honeypot" tabindex="-1" autocomplete="off"
+               style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;" aria-hidden="true">
+        <div class="field-group">
+          <label class="field-label" for="name">שם מלא</label>
+          <div class="input-wrap">
+            <input id="name" name="name" type="text" autocomplete="name"
+                   placeholder="שם מלא" class="field field--icon">
+            <span class="material-symbols-outlined input-icon">person</span>
+          </div>
+          <p class="form-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="phone">מספר טלפון</label>
+          <div class="input-wrap">
+            <input id="phone" name="phone" type="tel" autocomplete="tel"
+                   placeholder="050-000-0000" class="field field--icon ltr">
+            <span class="material-symbols-outlined input-icon">call</span>
+          </div>
+          <p class="form-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="business">מה העסק שלך?</label>
+          <div class="input-wrap">
+            <input id="business" name="business" type="text"
+                   placeholder="קליניקה / קבלן / חנות / יועץ..." class="field field--icon">
+            <span class="material-symbols-outlined input-icon">storefront</span>
+          </div>
+          <p class="form-error"></p>
+        </div>
+
+        <button type="submit" class="btn-primary" style="margin-top: 6px;">
+          <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+          <span class="btn-label">אני רוצה את אחד מ-5 המקומות</span>
+        </button>
+
+        <p style="text-align:center; font-size:0.82rem; color: var(--ink-faint);
+                  display:flex; align-items:center; justify-content:center; gap:6px;">
+          <span class="material-symbols-outlined" style="font-size:1.1em;">lock</span>
+          הפרטים שלך מאובטחים ולא יימכרו לאף גורם.
+        </p>
+        <p style="text-align:center; font-size:0.75rem; color: var(--ink-faint); margin-top:-8px;">
+          בשליחת הטופס אתה מאשר קבלת פנייה חוזרת ומסכים ל<a href="privacy.html">מדיניות הפרטיות</a> באתר.
+        </p>
+      </form>
+
+      <div id="lead-success" class="lead-success" style="text-align:center; padding: 16px 0; display:none;">
+        <span class="material-symbols-outlined ficon">check_circle</span>
+        <h3 style="margin: 14px 0 6px;">קיבלתי!</h3>
+        <p style="color: var(--ink-dim);">חוזר אליך היום עם תאריכים פנויים.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer style="text-align:center; padding: 32px 16px; color: var(--ink-faint); font-size:0.8rem; position:relative; z-index:1;">
+  כל הזכויות שמורות לאדיר צאנה &copy; 2026
+  <br>
+  <a href="privacy.html" style="color:var(--ink-faint); text-decoration:underline;">מדיניות פרטיות</a>
+  ·
+  <a href="#" id="cookie-settings-link" style="color:var(--ink-faint); text-decoration:underline;">הגדרות עוגיות</a>
+</footer>
+
+<!-- סרגל CTA דביק — נייד בלבד -->
+<div class="sticky-cta" id="sticky-cta">
+  <span class="sticky-cta__price">
+    1,499 ₪
+    <span class="sticky-cta__sub">נותרו 5 מתוך 5 מקומות</span>
+  </span>
+  <a href="#lead" class="btn-primary">
+    <span class="material-symbols-outlined" style="font-size:1.2em;">keyboard_double_arrow_left</span>
+    תפוס מקום
+  </a>
+</div>
+
+<!-- Cookie consent banner -->
+<div class="cookie-banner" id="cookie-banner">
+  <div class="cookie-banner-inner">
+    <p class="cookie-text">
+      האתר משתמש בעוגיות לצורך תפעול, ניתוח שימוש והצגת פרסום מותאם (לרבות פיקסלים של רשתות
+      פרסום). המשך גלישה מהווה הסכמה לשימוש בעוגיות בהתאם ל<a href="privacy.html">מדיניות הפרטיות</a>.
+    </p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-decline" id="cookie-decline">רק חיוני</button>
+      <button type="button" class="cookie-accept" id="cookie-accept">אישור הכל</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js?v=4"></script>
+<script src="a11y-widget.js" defer></script>
+</body>
+</html>
