@@ -44,7 +44,7 @@
     "  box-shadow: 0 8px 24px -8px rgba(0,0,0,.55);",
     "  cursor: pointer; padding: 0; transition: bottom .2s ease;",
     "}",
-    ".a11y-icon { font-size: 26px; font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }",
+    ".a11y-icon { width: 26px; height: 26px; }",
     ".a11y-panel {",
     "  position: fixed; left: 14px; bottom: calc(var(--a11y-bottom-offset, 16px) + 58px);",
     "  z-index: 9999; width: min(280px, calc(100vw - 44px));",
@@ -84,7 +84,7 @@
   toggle.setAttribute("aria-label", "פתיחת תפריט נגישות");
   toggle.setAttribute("aria-expanded", "false");
   toggle.setAttribute("aria-controls", "a11y-panel");
-  toggle.innerHTML = '<span class="material-symbols-outlined a11y-icon" aria-hidden="true">accessibility_new</span>';
+  toggle.innerHTML = '<svg class="icon a11y-icon" aria-hidden="true"><use href="#i-accessibility_new"/></svg>';
 
   var panel = document.createElement("div");
   panel.id = "a11y-panel";

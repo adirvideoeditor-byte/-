@@ -5,19 +5,43 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>אדיר צאנה | יום צילום אחד — סרטונים אותנטיים לממומן ולאורגני</title>
   <meta name="description" content="יום צילום אחד אצלך, 5 שעות, ציוד מקצועי מלא ותסריט שנבנה איתך בשיחה. יוצא מזה מחסן סרטונים אותנטיים לקמפיין הממומן ולאורגני. 1,499 ₪ — 5 מקומות בלבד.">
+
+  <!-- ⚠️ להחליף בדומיין הפרודקשן לפני העלייה לאוויר (מופיע גם ב-sitemap.xml וב-robots.txt) -->
+  <link rel="canonical" href="https://PRODUCTION-DOMAIN-HERE/">
+
+  <!-- Open Graph — תצוגה מקדימה בוואטסאפ / פייסבוק / לינקדאין -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="אדיר צאנה">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:url" content="https://PRODUCTION-DOMAIN-HERE/">
+  <meta property="og:title" content="יום צילום אחד — ואתה יכול לשנות את כל השיווק שלך">
+  <meta property="og:description" content="5 שעות אצלך, תסריט שנבנה איתך בשיחה, ומחסן חומרים אותנטיים לממומן ולאורגני. 1,499 ₪ — 5 מקומות בלבד.">
+  <meta property="og:image" content="https://PRODUCTION-DOMAIN-HERE/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="יום צילום אחד — 5 שעות אצלך, 1,499 ₪, מחוז מרכז">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="יום צילום אחד — ואתה יכול לשנות את כל השיווק שלך">
+  <meta name="twitter:description" content="5 שעות אצלך, תסריט שנבנה איתך בשיחה, ומחסן חומרים אותנטיים לממומן ולאורגני. 1,499 ₪ — 5 מקומות בלבד.">
+  <meta name="twitter:image" content="https://PRODUCTION-DOMAIN-HERE/og.png">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#1c1332">
+
+  <!-- PIXEL -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- גיליון הפונטים נטען ללא חסימת רינדור: media=print לא חוסם, ואחרי onload עובר ל-all -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&amp;family=Assistant:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&amp;family=Assistant:wght@400;500;600;700;800&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&amp;family=Assistant:wght@400;500;600;700;800&amp;display=swap"></noscript>
   <link href="style.css" rel="stylesheet">
   <style>
-    /* שמות האייקונים מוסתרים עד שפונט הסמלים נטען, כדי שלא יוצג טקסט גולמי */
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      vertical-align: middle;
-      visibility: hidden;
-    }
-    html.icons-ready .material-symbols-outlined { visibility: visible; }
     .wrap { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: 20px; position: relative; z-index: 1; }
     .hero-h1 { font-size: clamp(1.85rem, 5.6vw, 3rem); }
     .h2-std { text-align:center; font-size: clamp(1.5rem, 4.6vw, 2.05rem); }
@@ -71,13 +95,14 @@
 
     /* ── סרגל CTA דביק (נייד) ────────────────────────────────── */
     .sticky-cta {
-      position: fixed; inset-inline: 0; bottom: 0; z-index: 60;
+      position: fixed; inset-inline: 0; bottom: var(--cookie-h); z-index: 60;
+      transition: transform .28s ease, bottom .18s ease;
       display: flex; align-items: center; justify-content: space-between; gap: 14px;
       padding: 11px 16px calc(11px + env(safe-area-inset-bottom));
       background: oklch(0.17 0.048 288 / 0.93);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-top: 1px solid var(--hairline);
-      transform: translateY(110%); transition: transform .28s ease; visibility: hidden;
+      transform: translateY(110%); visibility: hidden;
     }
     .sticky-cta.visible { transform: translateY(0); visibility: visible; }
     .sticky-cta__price { font-family: 'Rubik', sans-serif; font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
@@ -91,32 +116,47 @@
       flex: 0 0 auto; width: auto; height: 46px;
       margin: 0; padding: 0 20px; font-size: 0.95rem; white-space: nowrap;
     }
-    .sticky-cta .btn-primary .material-symbols-outlined { font-size: 1.15em; }
+    .sticky-cta .btn-primary .icon { width: 1.15em; height: 1.15em; }
     @media (min-width: 900px) { .sticky-cta { display: none; } }
   </style>
-  <script>
-    // מציג את האייקונים רק אחרי שפונט Material Symbols נטען בהצלחה.
-    // אם הוא נחסם או נכשל — עדיף שלא יוצג כלום מאשר המילה "movie" באמצע הדף.
-    (function () {
-      var root = document.documentElement;
-      function show() { root.classList.add('icons-ready'); }
-      if (!document.fonts || !document.fonts.load) { show(); return; }
-      document.fonts.load('24px "Material Symbols Outlined"')
-        .then(function (faces) { if (faces.length) show(); })
-        .catch(function () {});
-    })();
-  </script>
 </head>
 <body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-videocam" viewBox="0 0 24 24"><rect x="2" y="6" width="13" height="12" rx="2.5"/><path d="M15 10.5 22 7v10l-7-3.5z"/></symbol>
+  <symbol id="i-arrow_back" viewBox="0 0 24 24"><path d="M20 12H4"/><path d="m10 6-6 6 6 6"/></symbol>
+  <symbol id="i-auto_awesome" viewBox="0 0 24 24"><path d="M11 3.5 12.9 8.6 18 10.5l-5.1 1.9L11 17.5 9.1 12.4 4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  <symbol id="i-event" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 2 4 13.5h6L10.5 22 20 10.5h-6z"/></symbol>
+  <symbol id="i-movie" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="14" rx="2.5"/><path d="M2.5 11h19M7.5 6l2.5 5M14 6l2.5 5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></symbol>
+  <symbol id="i-call" viewBox="0 0 24 24"><path d="M6.5 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6 6l1.5-2L21 14.5v3a2.5 2.5 0 0 1-2.7 2.5A17.5 17.5 0 0 1 3.5 5.7 2.5 2.5 0 0 1 6 3z"/></symbol>
+  <symbol id="i-storefront" viewBox="0 0 24 24"><path d="M4 4h16l1.5 5a3 3 0 0 1-5.8 1 3 3 0 0 1-5.8 0 3 3 0 0 1-5.8-1z"/><path d="M4.5 10.5V20h15v-9.5M10 20v-5h4v5"/></symbol>
+  <symbol id="i-keyboard_double_arrow_left" viewBox="0 0 24 24"><path d="m12 5-7 7 7 7M19 5l-7 7 7 7"/></symbol>
+  <symbol id="i-check_circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m7.5 12.2 3.2 3.2 6-6.4"/></symbol>
+  <symbol id="i-schedule" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l4 2.2"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></symbol>
+  <symbol id="i-hourglass_bottom" viewBox="0 0 24 24"><path d="M6 2.5h12M6 21.5h12"/><path d="M7 2.5v3.6c0 1 .4 2 1.2 2.7L12 12l-3.8 3.2c-.8.7-1.2 1.7-1.2 2.7v3.6M17 2.5v3.6c0 1-.4 2-1.2 2.7L12 12l3.8 3.2c.8.7 1.2 1.7 1.2 2.7v3.6"/><path d="M8.5 21.5c0-2 1.6-3.5 3.5-3.5s3.5 1.5 3.5 3.5" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-trending_down" viewBox="0 0 24 24"><path d="m3 7 6.5 6.5 4-4L21 17"/><path d="M21 11.5V17h-5.5"/></symbol>
+  <symbol id="i-forum" viewBox="0 0 24 24"><path d="M3 4.5h12a1.5 1.5 0 0 1 1.5 1.5v6A1.5 1.5 0 0 1 15 13.5H8L4.5 17v-3.5H3A1.5 1.5 0 0 1 1.5 12V6A1.5 1.5 0 0 1 3 4.5z"/><path d="M19.5 8H21a1.5 1.5 0 0 1 1.5 1.5v6A1.5 1.5 0 0 1 21 17h-1.5v3.5L16 17h-4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 20 6v5.5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5.5"/><circle cx="12" cy="7.8" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-favorite" viewBox="0 0 24 24"><path d="M12 20.5C6.5 16.8 3 13.9 3 9.9A4.9 4.9 0 0 1 12 7a4.9 4.9 0 0 1 9 2.9c0 4-3.5 6.9-9 10.6z"/></symbol>
+  <symbol id="i-verified_user" viewBox="0 0 24 24"><path d="M12 2.5 20 6v5.5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6z"/><path d="m8.5 11.8 2.6 2.6 4.6-5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M7.8 10V7.2a4.2 4.2 0 0 1 8.4 0V10"/></symbol>
+  <symbol id="i-accessibility_new" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M3.5 8.2 12 10l8.5-1.8M12 10v4.5M12 14.5 8.8 21M12 14.5 15.2 21"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-description" viewBox="0 0 24 24"><path d="M14 2.5H7A2.5 2.5 0 0 0 4.5 5v14A2.5 2.5 0 0 0 7 21.5h10a2.5 2.5 0 0 0 2.5-2.5V8z"/><path d="M14 2.5V8h5.5M8.5 12.5h7M8.5 16.5h7"/></symbol>
+</svg>
 
 <div class="topbar">
   <div class="topbar-inner">
     <span class="brand-name">
-      <span class="material-symbols-outlined">videocam</span>
+      <svg class="icon" aria-hidden="true"><use href="#i-videocam"/></svg>
       אדיר צאנה
     </span>
     <a href="#lead" class="btn-ghost">
-      <span class="material-symbols-outlined" style="font-size:1.1em;">arrow_back</span>
+      <svg class="icon" style="font-size:1.1em;" aria-hidden="true"><use href="#i-arrow_back"/></svg>
       לתפוס מקום
     </a>
   </div>
@@ -127,7 +167,7 @@
   <!-- Badge -->
   <div class="rise" style="text-align:center; margin-bottom: 24px;">
     <span class="badge">
-      <span class="material-symbols-outlined">auto_awesome</span>
+      <svg class="icon" aria-hidden="true"><use href="#i-auto_awesome"/></svg>
       יום צילום · 5 מקומות בלבד
     </span>
   </div>
@@ -153,17 +193,17 @@
   <div class="rise d3" style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
         gap: 14px 22px; margin-top: 36px;">
     <div style="display:flex; align-items:center; gap:10px;">
-      <span class="material-symbols-outlined ficon ficon--sm">event</span>
+      <svg class="icon ficon ficon--sm" aria-hidden="true"><use href="#i-event"/></svg>
       <span style="font-weight:700;">יום אחד · 5 שעות</span>
     </div>
     <span class="vrule" style="height:26px;"></span>
     <div style="display:flex; align-items:center; gap:10px;">
-      <span class="material-symbols-outlined ficon ficon--sm ficon--blue">bolt</span>
+      <svg class="icon ficon ficon--sm ficon--blue" aria-hidden="true"><use href="#i-bolt"/></svg>
       <span style="font-weight:700;">לממומן ולאורגני</span>
     </div>
     <span class="vrule" style="height:26px;"></span>
     <div style="display:flex; align-items:center; gap:10px;">
-      <span class="material-symbols-outlined ficon ficon--sm">movie</span>
+      <svg class="icon ficon ficon--sm" aria-hidden="true"><use href="#i-movie"/></svg>
       <span style="font-weight:700;">עשרות קליפים ביד</span>
     </div>
   </div>
@@ -187,34 +227,38 @@
           <label class="field-label" for="hero-name">שם מלא</label>
           <div class="input-wrap">
             <input id="hero-name" name="name" type="text" autocomplete="name"
+                   required minlength="2" aria-describedby="hero-name-error"
                    placeholder="שם מלא" class="field field--icon">
-            <span class="material-symbols-outlined input-icon">person</span>
+            <svg class="icon input-icon" aria-hidden="true"><use href="#i-person"/></svg>
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" id="hero-name-error" aria-live="polite"></p>
         </div>
 
         <div class="field-group">
           <label class="field-label" for="hero-phone">מספר טלפון</label>
           <div class="input-wrap">
             <input id="hero-phone" name="phone" type="tel" autocomplete="tel"
+                   required inputmode="tel" aria-describedby="hero-phone-error"
+                   pattern="(\+?972|0)[\s\-]?[2-9][0-9\s\-().]{6,12}"
                    placeholder="050-000-0000" class="field field--icon ltr">
-            <span class="material-symbols-outlined input-icon">call</span>
+            <svg class="icon input-icon" aria-hidden="true"><use href="#i-call"/></svg>
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" id="hero-phone-error" aria-live="polite"></p>
         </div>
 
         <div class="field-group">
           <label class="field-label" for="hero-business">מה העסק שלך?</label>
           <div class="input-wrap">
-            <input id="hero-business" name="business" type="text"
+            <input id="hero-business" name="business" type="text" autocomplete="organization"
+                   required aria-describedby="hero-business-error"
                    placeholder="קליניקה / קבלן / חנות / יועץ..." class="field field--icon">
-            <span class="material-symbols-outlined input-icon">storefront</span>
+            <svg class="icon input-icon" aria-hidden="true"><use href="#i-storefront"/></svg>
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" id="hero-business-error" aria-live="polite"></p>
         </div>
 
         <button type="submit" class="btn-primary" style="margin-top: 6px;">
-          <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-keyboard_double_arrow_left"/></svg>
           <span class="btn-label">אני רוצה יום צילום</span>
         </button>
 
@@ -224,8 +268,8 @@
       </form>
 
       <div class="lead-success" style="text-align:center; padding: 16px 0; display:none;">
-        <span class="material-symbols-outlined ficon">check_circle</span>
-        <h3 style="margin: 14px 0 6px;">קיבלתי!</h3>
+        <svg class="icon ficon" aria-hidden="true"><use href="#i-check_circle"/></svg>
+        <h2 class="success-title">קיבלתי!</h2>
         <p style="color: var(--ink-dim);">חוזר אליך היום עם תאריכים פנויים.</p>
       </div>
     </div>
@@ -249,26 +293,26 @@
 
     <ul style="list-style:none; margin:0 auto; padding:0; max-width: 560px; display:flex; flex-direction:column; gap:16px;">
       <li style="display:flex; gap:14px; align-items:flex-start;">
-        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">schedule</span></span>
+        <span class="pain-dot"><svg class="icon" style="font-size:16px;" aria-hidden="true"><use href="#i-schedule"/></svg></span>
         <span style="line-height:1.6; color: var(--ink-dim);">
           אתה מעמיד חצובה בסלון ב-22:00 בלילה, כי זה הזמן היחיד שנשאר.
         </span>
       </li>
       <li style="display:flex; gap:14px; align-items:flex-start;">
-        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">mic</span></span>
+        <span class="pain-dot"><svg class="icon" style="font-size:16px;" aria-hidden="true"><use href="#i-mic"/></svg></span>
         <span style="line-height:1.6; color: var(--ink-dim);">
           ומקריא טקסט משונן שלא נשמע כמוך בכלל. אתה שומע את זה — וגם הצופה שומע.
         </span>
       </li>
       <li style="display:flex; gap:14px; align-items:flex-start;">
-        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">hourglass_bottom</span></span>
+        <span class="pain-dot"><svg class="icon" style="font-size:16px;" aria-hidden="true"><use href="#i-hourglass_bottom"/></svg></span>
         <span style="line-height:1.6; color: var(--ink-dim);">
           כל פעם מתחילים מאפס: לתאם, להתלבש, לחשוב מה להגיד, לגלות שהתאורה גרועה ושהמיקרופון
           קלט את המזגן.
         </span>
       </li>
       <li style="display:flex; gap:14px; align-items:flex-start;">
-        <span class="pain-dot"><span class="material-symbols-outlined" style="font-size:16px;">trending_down</span></span>
+        <span class="pain-dot"><svg class="icon" style="font-size:16px;" aria-hidden="true"><use href="#i-trending_down"/></svg></span>
         <span style="line-height:1.6; color: var(--ink-dim);">
           והתוצאה? הקמפיין הממומן רץ על קריאייטיב חובבני, הפרופיל האורגני שלך ריק, והלידים
           ממשיכים להתווכח איתך על מחיר — כי שום דבר לא שידר שאתה שווה יותר.
@@ -315,7 +359,7 @@
 
     <div class="grid-3">
       <div class="panel" style="padding: 26px 22px; text-align:center;">
-        <span class="material-symbols-outlined ficon ficon--blue">forum</span>
+        <svg class="icon ficon ficon--blue" aria-hidden="true"><use href="#i-forum"/></svg>
         <p style="margin: 16px 0 0; color: var(--ink-dim); line-height:1.65;">
           <strong style="color: var(--ink);">שיחת תסריט לפני היום (45 דק'):</strong>
           אני שואל, אתה מדבר, ואני מנסח. אתה מגיע ליום הצילום עם דף ביד ועם ראש נקי — בלי לשנן,
@@ -323,7 +367,7 @@
         </p>
       </div>
       <div class="panel" style="padding: 26px 22px; text-align:center;">
-        <span class="material-symbols-outlined ficon">bolt</span>
+        <svg class="icon ficon" aria-hidden="true"><use href="#i-bolt"/></svg>
         <p style="margin: 16px 0 0; color: var(--ink-dim); line-height:1.65;">
           <strong style="color: var(--ink);">5 שעות צילום, 3 סטים:</strong>
           ישיבה (הסבר עומק לאורגני), עמידה (מסר ישיר ואנכי — קריאייטיב לממומן) ותזוזתי (הליכה,
@@ -331,7 +375,7 @@
         </p>
       </div>
       <div class="panel" style="padding: 26px 22px; text-align:center;">
-        <span class="material-symbols-outlined ficon ficon--blue">shield</span>
+        <svg class="icon ficon ficon--blue" aria-hidden="true"><use href="#i-shield"/></svg>
         <p style="margin: 16px 0 0; color: var(--ink-dim); line-height:1.65;">
           <strong style="color: var(--ink);">כל החומרים שלך תוך 48 שעות:</strong>
           תיקייה משותפת בענן ובתוכה <strong style="color: var(--ink);">מפת חומרים</strong> —
@@ -341,7 +385,7 @@
     </div>
 
     <div class="note">
-      <span class="material-symbols-outlined" style="color: var(--pink-soft); font-size:1.4rem;">info</span>
+      <svg class="icon" style="color: var(--pink-soft); font-size:1.4rem;" aria-hidden="true"><use href="#i-info"/></svg>
       <span>
         <strong>זו הצעת צילום בלבד — בלי עריכה.</strong>
         בדיוק בגלל זה זה עולה 1,499 ולא 8,000. אתה יוצא עם חומר גלם מסודר ומתועד, לא עם סרטון ערוך.
@@ -353,7 +397,7 @@
   <!-- Testimonials -->
   <section style="margin-top: 60px;">
     <h2 class="h2-std" style="margin-bottom: 26px; display:flex; align-items:center; justify-content:center; gap:10px;">
-      <span class="material-symbols-outlined ficon ficon--sm">favorite</span>
+      <svg class="icon ficon ficon--sm" aria-hidden="true"><use href="#i-favorite"/></svg>
       מה הלקוחות אומרים
     </h2>
     <div class="shorts-row">
@@ -397,7 +441,7 @@
 
   <!-- Guarantee + scarcity -->
   <section class="panel panel--glow" style="margin-top: 60px; padding: clamp(28px, 5vw, 46px); text-align:center;">
-    <span class="material-symbols-outlined ficon" style="font-size:2.8rem;">verified_user</span>
+    <svg class="icon ficon" style="font-size:2.8rem;" aria-hidden="true"><use href="#i-verified_user"/></svg>
     <h2 class="h2-std" style="margin: 18px 0 22px;">
       לא אהבת את יום הצילום? <span class="brand-grad">קח את הכסף חזרה.</span>
     </h2>
@@ -421,7 +465,7 @@
     <div style="margin-top: 26px;">
       <span class="slots">
         <span class="slots-dot"></span>
-        נותרו 5 מתוך 5 מקומות
+        נותרו 3 מתוך 5 מקומות
       </span>
     </div>
   </section>
@@ -447,40 +491,44 @@
           <label class="field-label" for="name">שם מלא</label>
           <div class="input-wrap">
             <input id="name" name="name" type="text" autocomplete="name"
+                   required minlength="2" aria-describedby="name-error"
                    placeholder="שם מלא" class="field field--icon">
-            <span class="material-symbols-outlined input-icon">person</span>
+            <svg class="icon input-icon" aria-hidden="true"><use href="#i-person"/></svg>
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" id="name-error" aria-live="polite"></p>
         </div>
 
         <div class="field-group">
           <label class="field-label" for="phone">מספר טלפון</label>
           <div class="input-wrap">
             <input id="phone" name="phone" type="tel" autocomplete="tel"
+                   required inputmode="tel" aria-describedby="phone-error"
+                   pattern="(\+?972|0)[\s\-]?[2-9][0-9\s\-().]{6,12}"
                    placeholder="050-000-0000" class="field field--icon ltr">
-            <span class="material-symbols-outlined input-icon">call</span>
+            <svg class="icon input-icon" aria-hidden="true"><use href="#i-call"/></svg>
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" id="phone-error" aria-live="polite"></p>
         </div>
 
         <div class="field-group">
           <label class="field-label" for="business">מה העסק שלך?</label>
           <div class="input-wrap">
-            <input id="business" name="business" type="text"
+            <input id="business" name="business" type="text" autocomplete="organization"
+                   required aria-describedby="business-error"
                    placeholder="קליניקה / קבלן / חנות / יועץ..." class="field field--icon">
-            <span class="material-symbols-outlined input-icon">storefront</span>
+            <svg class="icon input-icon" aria-hidden="true"><use href="#i-storefront"/></svg>
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" id="business-error" aria-live="polite"></p>
         </div>
 
         <button type="submit" class="btn-primary" style="margin-top: 6px;">
-          <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-keyboard_double_arrow_left"/></svg>
           <span class="btn-label">אני רוצה את אחד מ-5 המקומות</span>
         </button>
 
         <p style="text-align:center; font-size:0.82rem; color: var(--ink-faint);
                   display:flex; align-items:center; justify-content:center; gap:6px;">
-          <span class="material-symbols-outlined" style="font-size:1.1em;">lock</span>
+          <svg class="icon" style="font-size:1.1em;" aria-hidden="true"><use href="#i-lock"/></svg>
           הפרטים שלך מאובטחים ולא יימכרו לאף גורם.
         </p>
         <p style="text-align:center; font-size:0.75rem; color: var(--ink-faint); margin-top:-8px;">
@@ -489,8 +537,8 @@
       </form>
 
       <div id="lead-success" class="lead-success" style="text-align:center; padding: 16px 0; display:none;">
-        <span class="material-symbols-outlined ficon">check_circle</span>
-        <h3 style="margin: 14px 0 6px;">קיבלתי!</h3>
+        <svg class="icon ficon" aria-hidden="true"><use href="#i-check_circle"/></svg>
+        <h2 class="success-title">קיבלתי!</h2>
         <p style="color: var(--ink-dim);">חוזר אליך היום עם תאריכים פנויים.</p>
       </div>
     </div>
@@ -503,6 +551,8 @@
   <br>
   <a href="privacy.html" style="color:var(--ink-faint); text-decoration:underline;">מדיניות פרטיות</a>
   ·
+  <a href="accessibility.html" style="color:var(--ink-faint); text-decoration:underline;">הצהרת נגישות</a>
+  ·
   <a href="#" id="cookie-settings-link" style="color:var(--ink-faint); text-decoration:underline;">הגדרות עוגיות</a>
 </footer>
 
@@ -510,10 +560,10 @@
 <div class="sticky-cta" id="sticky-cta">
   <span class="sticky-cta__price">
     1,499 ₪
-    <span class="sticky-cta__sub">נותרו 5 מתוך 5 מקומות</span>
+    <span class="sticky-cta__sub">נותרו 3 מתוך 5 מקומות</span>
   </span>
   <a href="#lead" class="btn-primary">
-    <span class="material-symbols-outlined" style="font-size:1.2em;">keyboard_double_arrow_left</span>
+    <svg class="icon" style="font-size:1.2em;" aria-hidden="true"><use href="#i-keyboard_double_arrow_left"/></svg>
     תפוס מקום
   </a>
 </div>
@@ -532,7 +582,7 @@
   </div>
 </div>
 
-<script src="script.js?v=4"></script>
+<script src="script.js?v=8"></script>
 <script src="a11y-widget.js" defer></script>
 </body>
 </html>

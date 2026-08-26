@@ -24,11 +24,14 @@
   /* Type */
   --ink:         oklch(0.97 0.008 300);
   --ink-dim:     oklch(0.97 0.008 300 / 0.68);
-  --ink-faint:   oklch(0.97 0.008 300 / 0.42);
+  --ink-faint:   oklch(0.97 0.008 300 / 0.52);   /* 5.26:1 — 0.42 נתן 3.75:1 ונכשל ב-AA */
 
   --radius:      20px;
   --radius-sm:   13px;
   --max-w:       760px;
+
+  /* גובה באנר העוגיות בפועל; נכתב מ-script.js, 0 כשהבאנר סגור */
+  --cookie-h:    0px;
 }
 
 * { box-sizing: border-box; }
@@ -50,6 +53,8 @@ body {
   text-rendering: optimizeLegibility;
   font-size: 16px;
   line-height: 1.5;
+  padding-bottom: var(--cookie-h);
+  transition: padding-bottom .18s ease;
 }
 
 body::before {
@@ -90,7 +95,7 @@ a { color: var(--pink-soft); }
     0 0 0 1px oklch(0.85 0.12 320 / 0.35) inset,
     0 6px 26px var(--glow);
 }
-.badge .material-symbols-outlined { font-size: 1.05em; }
+.badge .icon { width: 1.05em; height: 1.05em; }
 
 /* ---- Surfaces ------------------------------------------------------ */
 .panel {
@@ -109,14 +114,27 @@ a { color: var(--pink-soft); }
     0 30px 70px -30px oklch(0.06 0.04 288 / 0.95);
 }
 
+/* ---- Icons -----------------------------------------------------------
+   אייקונים מוטמעים כ-SVG בתוך הדף. קודם הם הגיעו מפונט ליגטורות של
+   Material Symbols — 1.1MB שנטענו רק בשביל 21 סמלים, ושהציגו את שם
+   האייקון כטקסט עד שהפונט הגיע.
+   ------------------------------------------------------------------- */
+.icon {
+  width: 1em; height: 1em;
+  display: inline-block; vertical-align: middle; flex: none;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
+}
+.input-icon.icon { width: 21px; height: 21px; }
+
 /* ---- Feature icons --------------------------------------------------- */
 .ficon {
   color: var(--pink-soft);
-  font-size: 2.3rem;
+  width: 2.3rem; height: 2.3rem;
   line-height: 1;
   filter: drop-shadow(0 0 10px oklch(0.62 0.22 330 / 0.45));
 }
-.ficon--sm { font-size: 1.8rem; }
+.ficon--sm { width: 1.8rem; height: 1.8rem; }
 .ficon--blue { color: var(--blue); filter: drop-shadow(0 0 10px oklch(0.62 0.19 255 / 0.45)); }
 
 .vrule { width: 1px; align-self: stretch; background: var(--hairline); }
@@ -235,7 +253,7 @@ a { color: var(--pink-soft); }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px -6px var(--glow); background-position: 100% 0%; }
 .btn-primary:active { transform: translateY(0) scale(.99); }
 .btn-primary:disabled { opacity: .7; cursor: default; transform: none; }
-.btn-primary .material-symbols-outlined { font-size: 1.3em; }
+.btn-primary .icon { width: 1.3em; height: 1.3em; }
 
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 8px;
@@ -270,15 +288,17 @@ a { color: var(--pink-soft); }
   display: flex; align-items: center; gap: 8px;
   color: var(--ink);
 }
-.brand-name .material-symbols-outlined { color: var(--pink-soft); font-size: 1.3em; }
+.brand-name .icon { color: var(--pink-soft); width: 1.3em; height: 1.3em; }
 
 /* ---- Cookie consent banner ------------------------------------------- */
 .cookie-banner {
   position: fixed; inset-inline: 0; bottom: 0; z-index: 100;
   padding: 16px;
   display: none;
+  pointer-events: none;   /* רק התיבה עצמה לוכדת לחיצות, לא הריפוד סביבה */
 }
 .cookie-banner.visible { display: flex; }
+.cookie-banner-inner { pointer-events: auto; }
 .cookie-banner-inner {
   max-width: 920px; margin-inline: auto; width: 100%;
   background: linear-gradient(180deg, var(--surface), var(--bg-1));
@@ -320,3 +340,30 @@ a { color: var(--pink-soft); }
 }
 
 .measure { max-width: 62ch; margin-inline: auto; }
+
+/* ---- Send-failure notice (network / server) --------------------------- */
+.form-global-error {
+  display: none;
+  align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
+  margin-top: 4px; padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  background: oklch(0.68 0.24 350 / 0.12);
+  border: 1px solid oklch(0.68 0.24 350 / 0.45);
+  color: var(--ink);
+  font-size: 0.92rem; line-height: 1.5; text-align: center;
+}
+.form-global-error.visible { display: flex; }
+.form-global-error:focus-visible { outline: 2px solid var(--pink-soft); outline-offset: 2px; }
+
+.btn-retry {
+  font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 0.88rem;
+  color: var(--ink);
+  padding: 9px 20px; border-radius: 999px; cursor: pointer;
+  background: oklch(1 0 0 / 0.08);
+  border: 1.5px solid oklch(0.68 0.24 350 / 0.55);
+  transition: background .2s ease, transform .15s ease;
+}
+.btn-retry:hover { background: oklch(1 0 0 / 0.14); transform: translateY(-1px); }
+
+/* כותרת מסך התודה — h2 לשמירת היררכיה, בגודל של h3 */
+.success-title { font-size: 1.25rem; margin: 14px 0 6px; }
