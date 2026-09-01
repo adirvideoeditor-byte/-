@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ⚠️ להחליף PRODUCTION-DOMAIN-HERE בדומיין האמיתי לפני העלייה לאוויר -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://PRODUCTION-DOMAIN-HERE/</loc>
+    <loc>https://chane.adirvideo.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
