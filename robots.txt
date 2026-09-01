@@ -1,5 +1,4 @@
-# ⚠️ להחליף PRODUCTION-DOMAIN-HERE בדומיין האמיתי לפני העלייה לאוויר
 User-agent: *
 Allow: /
 
-Sitemap: https://PRODUCTION-DOMAIN-HERE/sitemap.xml
+Sitemap: https://chane.adirvideo.com/sitemap.xml
