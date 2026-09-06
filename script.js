@@ -118,7 +118,12 @@ async function postLead(payload) {
 // נקודת החיבור לפיקסלים. בכוונה נקראת רק אחרי תשובה מוצלחת מה-Worker,
 // כדי שלא יידווחו המרות על לידים שמעולם לא הגיעו בפועל.
 function onLeadSuccess(payload) {
-  /* PIXEL-LEAD-EVENT */
+  // Meta Pixel. בכוונה כאן ולא ב-submit: ירי בלחיצה על הכפתור היה מדווח
+  // המרה גם על שליחה שנכשלה, ואז המספרים בפייסבוק לא היו תואמים ל-Airtable.
+  var consent = null;
+  try { consent = localStorage.getItem(COOKIE_KEY); } catch (e) {}
+  if (consent === "essential") return;
+  if (typeof window.fbq === "function") window.fbq("track", "Lead");
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────────
