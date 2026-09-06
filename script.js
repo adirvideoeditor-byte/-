@@ -4,6 +4,28 @@
 const WEBHOOK_URL = "/api/lead";
 const DRAFT_KEY = "adir_lead_draft";
 
+// ─── Funnel tracking ──────────────────────────────────────────────────────────
+// מודד איפה בדיוק ליד נוטש, כדי שלא נצטרך לנחש. כל האירועים עוברים דרך track()
+// אחד שמכבד את באנר העוגיות - אם המבקר בחר "רק חיוני", שום דבר לא נשלח.
+var funnel = { seenForm: false, started: false, lastField: null, sent: false };
+
+function trackingAllowed() {
+  var c = null;
+  try { c = localStorage.getItem("adir_cookie_consent"); } catch (e) {}
+  return c !== "essential";
+}
+
+function track(event, params, standard) {
+  if (!trackingAllowed()) return;
+  if (typeof window.fbq === "function") {
+    window.fbq(standard ? "track" : "trackCustom", event, params || {});
+  }
+  // מתייג גם את Clarity, כדי שאפשר יהיה לסנן הקלטות לפי שלב במשפך
+  if (typeof window.clarity === "function") {
+    try { window.clarity("set", "funnel", event); } catch (e) {}
+  }
+}
+
 // ─── Lead forms (hero + final CTA share class .lead-form) ─────────────────────
 document.querySelectorAll(".lead-form").forEach(setupLeadForm);
 
@@ -12,9 +34,21 @@ function setupLeadForm(form) {
 
   // מנקה שגיאה ברגע שהמשתמש מתקן, כדי שלא יישאר אדום אחרי שכבר תוקן
   form.querySelectorAll("input[name]").forEach((input) => {
+    if (input.name === "honeypot") return;
+
+    input.addEventListener("focus", () => {
+      funnel.lastField = input.name;
+    });
+
     input.addEventListener("input", () => {
       if (input.getAttribute("aria-invalid") === "true") clearFieldError(form, input.name);
       saveDraft(form);
+
+      // ההקלדה הראשונה בטופס - מכאן והלאה כל נטישה היא נטישה של מישהו שהתחיל
+      if (!funnel.started && input.value.trim() !== "") {
+        funnel.started = true;
+        track("FormStart", { field: input.name });
+      }
     });
   });
 
@@ -32,6 +66,7 @@ async function submitLead(form) {
   const problem = validate(values);
   if (problem) {
     showError(form, problem.field, problem.message);
+    track("FormError", { field: problem.field, reason: problem.message });
     const input = form.querySelector(`[name="${problem.field}"]`);
     if (input) input.focus();
     return;
@@ -68,6 +103,7 @@ async function submitLead(form) {
   }
 
   setLoading(form, false);
+  track("FormSubmitFailed", { reason: result.message });
   showSendFailure(form, result.message, function () {
     submitLead(form);
   });
@@ -118,12 +154,11 @@ async function postLead(payload) {
 // נקודת החיבור לפיקסלים. בכוונה נקראת רק אחרי תשובה מוצלחת מה-Worker,
 // כדי שלא יידווחו המרות על לידים שמעולם לא הגיעו בפועל.
 function onLeadSuccess(payload) {
-  // Meta Pixel. בכוונה כאן ולא ב-submit: ירי בלחיצה על הכפתור היה מדווח
-  // המרה גם על שליחה שנכשלה, ואז המספרים בפייסבוק לא היו תואמים ל-Airtable.
-  var consent = null;
-  try { consent = localStorage.getItem(COOKIE_KEY); } catch (e) {}
-  if (consent === "essential") return;
-  if (typeof window.fbq === "function") window.fbq("track", "Lead");
+  // אירוע ההמרה. בכוונה כאן ולא ב-submit: ירי בלחיצה על הכפתור היה מדווח
+  // המרה גם על שליחה שנכשלה, ואז המספרים ב-Meta לא היו תואמים ל-Airtable.
+  // ה-value הוא מחיר ההצעה, כדי ש-Meta תוכל לבצע אופטימיזציה לפי שווי.
+  funnel.sent = true;
+  track("Lead", { content_name: "יום צילום", value: 1499, currency: "ILS" }, true);
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────────
@@ -154,10 +189,10 @@ const PHONE_RE = /^0(?:5\d{8}|7\d{8}|[2-489]\d{7})$/;
 
 function validate(v) {
   if (!v.name) return { field: "name", message: "נא להזין שם מלא" };
-  if (v.name.length < 2) return { field: "name", message: "השם קצר מדי — נא להזין שם מלא" };
+  if (v.name.length < 2) return { field: "name", message: "השם קצר מדי - נא להזין שם מלא" };
   if (!v.phone) return { field: "phone", message: "נא להזין מספר טלפון" };
   if (!PHONE_RE.test(normalizePhone(v.phone)))
-    return { field: "phone", message: "מספר טלפון לא תקין — לדוגמה 050-1234567" };
+    return { field: "phone", message: "מספר טלפון לא תקין - לדוגמה 050-1234567" };
   if (!v.business) return { field: "business", message: "נא לכתוב בקצרה מה העסק שלך" };
   return null;
 }
@@ -355,6 +390,41 @@ if (settingsLink)
     e.preventDefault();
     showBanner();
   });
+
+// ─── Funnel: הגיע לטופס, ונטש ─────────────────────────────────────────────────
+(function () {
+  const hero = document.getElementById("hero-form");
+
+  // כמה בכלל ראו את הטופס. הפער בין PageView לכאן הוא נטישה לפני שהגיעו אליו.
+  if (hero) {
+    let ticking = false;
+    const check = function () {
+      ticking = false;
+      if (funnel.seenForm) return;
+      const vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (!vh) return;
+      if (hero.getBoundingClientRect().top < vh * 0.9) {
+        funnel.seenForm = true;
+        track("ViewContent", { content_name: "טופס לידים" }, true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    const onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    check();
+  }
+
+  // pagehide ולא unload: הוא היחיד שנורה אמינות גם בנייד וגם בסגירת לשונית
+  window.addEventListener("pagehide", function () {
+    if (funnel.started && !funnel.sent) {
+      track("FormAbandon", { lastField: funnel.lastField || "unknown" });
+    }
+  });
+})();
 
 // ─── Sticky mobile CTA — מופיע אחרי טופס ה-Hero, נעלם כשמגיעים לטופס התחתון ──
 (function () {
