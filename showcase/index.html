@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>אדיר צאנה | עבודות והמלצות</title>
+  <meta name="description" content="בלי הסברים ובלי הבטחות. סרטונים שצילמתי וערכתי לעסקים, ולקוחות שמספרים מול המצלמה איך זה היה.">
+  <meta name="theme-color" content="#120f2b">
+  <!-- תצוגה מקדימה של הקישור בוואטסאפ -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="אדיר צאנה | עבודות והמלצות">
+  <meta property="og:description" content="סרטונים שצילמתי וערכתי לעסקים, ולקוחות שמספרים מול המצלמה איך זה היה.">
+  <meta property="og:url" content="https://chane.adirvideo.com/showcase/">
+  <meta property="og:image" content="https://chane.adirvideo.com/showcase/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="showcase.css">
+</head>
+<body>
+
+<a class="skip" href="#works">דלג לעבודות</a>
+
+<!-- אייקונים (lucide) -->
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
+</svg>
+
+<!-- ניווט צף -->
+<nav class="nav" aria-label="ניווט ראשי">
+  <a class="nav__brand" href="#top">
+    <svg class="icon" aria-hidden="true"><use href="#i-video"/></svg>
+    אדיר צאנה
+  </a>
+  <div class="nav__links">
+    <a href="#works">עבודות</a>
+    <a href="#testimonials">המלצות</a>
+    <a href="#contact">יצירת קשר</a>
+  </div>
+  <a class="btn btn--sm" href="#contact">
+    דבר איתי
+    <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+  </a>
+</nav>
+
+<!-- מסך פתיחה -->
+<header class="hero" id="top">
+  <canvas class="hero__canvas" id="particles" aria-hidden="true"></canvas>
+  <div class="hero__in">
+    <p class="eyebrow rise">צילום ועריכת וידאו לעסקים</p>
+    <h1 class="hero__h1">
+      <span class="rise d1">לא מספר לך<i class="dot">.</i></span>
+      <span class="rise d2 grad">מראה לך<i class="dot dot--pink">.</i></span>
+    </h1>
+    <p class="hero__sub rise d3">
+      בדף הזה אין הסברים ואין הבטחות. יש סרטונים שצילמתי וערכתי לעסקים,
+      ולקוחות שמספרים מול המצלמה איך זה היה.
+    </p>
+    <p class="hero__key rise d3">תלחץ על סרטון, <em>ותראה בעצמך.</em></p>
+    <div class="hero__cta rise d4">
+      <a class="btn" href="#works">
+        לצפות בעבודות
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="#testimonials">
+        מה הלקוחות אומרים
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero__fade" aria-hidden="true"></div>
+</header>
+
+<!-- פס טקסט רץ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="ticker"></div>
+</div>
+
+<main>
+
+  <!-- קיר העבודות -->
+  <section class="sec" id="works">
+    <div class="head reveal">
+      <h2 class="h2">
+        <span>טעימה מהסרטונים</span>
+        <span><em class="grad">האחרונים</em> שלי<i class="dot dot--pink">.</i></span>
+      </h2>
+      <p class="head__note">
+        <svg class="icon" aria-hidden="true"><use href="#i-volume"/></svg>
+        לחיצה על סרטון פותחת אותו במלואו, עם סאונד
+      </p>
+    </div>
+
+    <div class="wall" id="wall">
+      <div class="wall__row"><div class="wall__track" data-row="0"></div></div>
+      <div class="wall__row wall__row--rev"><div class="wall__track" data-row="1"></div></div>
+    </div>
+  </section>
+
+  <!-- המלצות וידאו -->
+  <section class="sec sec--glow" id="testimonials">
+    <div class="head reveal">
+      <p class="head__pre">לא אני כותב את זה.</p>
+      <h2 class="h2">
+        <span>מה שהלקוחות אומרים</span>
+        <span><em class="grad">מול המצלמה</em><i class="dot dot--pink">.</i></span>
+      </h2>
+    </div>
+
+    <div class="fan reveal" id="fan"></div>
+  </section>
+
+  <!-- יצירת קשר -->
+  <section class="sec contact" id="contact">
+    <div class="contact__grid">
+      <div class="contact__copy reveal">
+        <h2 class="h2 h2--start">
+          <span>ראית מספיק?</span>
+          <span><em class="grad">בוא נצלם את שלך</em><i class="dot dot--pink">.</i></span>
+        </h2>
+        <p class="contact__sub">
+          משאירים פרטים, ואני חוזר אליך לשיחה קצרה. נבין מה העסק שלך צריך,
+          ואם זה מתאים, קובעים תאריך.
+        </p>
+      </div>
+
+      <div class="card reveal">
+        <!-- מוצג במקום הטופס כשמוגדר מספר וואטסאפ ב-showcase.js -->
+        <div class="wa" id="wa-box" hidden>
+          <p class="wa__title">אנחנו כבר בשיחה.</p>
+          <p class="wa__sub">הודעה אחת בוואטסאפ, וממשיכים מאיפה שעצרנו.</p>
+          <a class="btn btn--full" id="wa-link" href="#" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>
+            ראיתי, בוא נדבר
+          </a>
+        </div>
+
+        <form class="form" id="lead-form" novalidate>
+          <input class="hp" type="text" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="field">
+            <label for="f-name">שם מלא</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="שם מלא">
+            <p class="err" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="f-phone">טלפון</label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-000-0000" class="ltr">
+            <p class="err" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="f-business">מה העסק שלך?</label>
+            <input id="f-business" name="business" type="text" placeholder="קליניקה / קבלן / חנות / יועץ...">
+            <p class="err" role="alert"></p>
+          </div>
+
+          <button class="btn btn--full" type="submit">
+            <span class="btn__label">שלח, ואני חוזר אליך</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </button>
+          <p class="err err--global" role="alert"></p>
+
+          <p class="form__legal">
+            בשליחת הטופס אתה מאשר קבלת פנייה חוזרת ומסכים ל<a href="../privacy.html">מדיניות הפרטיות</a>.
+          </p>
+        </form>
+
+        <div class="done" id="lead-done" hidden>
+          <svg class="icon done__icon" aria-hidden="true"><use href="#i-check"/></svg>
+          <h3>קיבלתי!</h3>
+          <p>אני חוזר אליך בהקדם.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>כל הזכויות שמורות לאדיר צאנה &copy; 2026</span>
+  <span class="foot__links">
+    <a href="https://www.instagram.com/adir_chane/" target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg>
+      adir_chane
+    </a>
+    <a href="../privacy.html">מדיניות פרטיות</a>
+  </span>
+</footer>
+
+<!-- נגן מסך מלא -->
+<dialog class="lb" id="lightbox" aria-label="נגן וידאו">
+  <button class="lb__close" type="button" id="lb-close" aria-label="סגירה">
+    <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+  </button>
+  <div class="lb__phone">
+    <div class="lb__stage" id="lb-stage"></div>
+  </div>
+  <p class="lb__cap" id="lb-cap"></p>
+</dialog>
+
+<script src="showcase.js"></script>
+</body>
+</html>
