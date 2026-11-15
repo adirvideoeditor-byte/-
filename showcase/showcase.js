@@ -7,13 +7,19 @@
 // file  = שם הקובץ בתיקיית media (בלי סיומת). צריך להיות שם:
 //         file.mp4 (הסרטון המלא), file_loop.mp4 (לופ שקט של 6 שניות), file.jpg (תמונה)
 // row   = באיזו שורה בקיר הסרטון מופיע (0 או 1)
+// wide  = true לסרטון רוחבי (16:9) - הנגן נפתח לרוחב
 const WORKS = [
+  { file: "david-bar-ilan",     name: "דוד בר אילן",     kind: "סרטון מקמפיין",    row: 0 },
   { file: "marco-tender",       name: "מרקו",            kind: "רילס מתוך הרצאה",  row: 0 },
+  { file: "gal-israeli",        name: "גל ישראלי",       kind: "5 דברים על אקנה",  row: 0 },
   { file: "beit-alcohol",       name: "בית האלכוהול",    kind: "מודעה ממומנת",     row: 0 },
+  { file: "moshe-kaplan",       name: "משה קפלן",        kind: "מלאך ושטן",        row: 0 },
   { file: "adir-eda",           name: "אדיר צאנה",       kind: "רילס אורגני",      row: 0 },
   { file: "biro",               name: "בירו",            kind: "קטע סטנדאפ",       row: 0 },
   { file: "marco-testimonials", name: "מרקו",            kind: "סרטון המלצות",     row: 0 },
+  { file: "ofer-zilberg",       name: "אופר זילברג",     kind: "רילס",             row: 1 },
   { file: "adir-ad",            name: "יום צילום",       kind: "מודעה ממומנת",     row: 1 },
+  { file: "tamir-damari",       name: "תמיר דמרי",       kind: "המלצות מהסדנה",    row: 1, wide: true },
   { file: "geula",              name: "גאולה הדראי",     kind: "רילס אורגני",      row: 1 },
   { file: "bts",                name: "מאחורי הקלעים",   kind: "סדרה לאינסטגרם",   row: 1 },
   { file: "marco-qa",           name: "מרקו",            kind: "שאלות ותשובות",    row: 1 },
@@ -127,7 +133,7 @@ function workCard(work, isClone) {
 
   card.addEventListener("click", () => openLightbox({
     kind: "file", src: `${MEDIA}${work.file}.mp4`, poster: `${MEDIA}${work.file}.jpg`,
-    caption: `${work.name} · ${work.kind}`, opener: card,
+    caption: `${work.name} · ${work.kind}`, opener: card, wide: Boolean(work.wide),
   }));
   return card;
 }
@@ -180,6 +186,7 @@ function openLightbox(item) {
   lbOpener = item.opener || null;
   lbStage.replaceChildren();
   lbCap.textContent = item.caption || "";
+  lightbox.classList.toggle("lb--wide", Boolean(item.wide));
 
   if (item.kind === "yt") {
     const frame = el("iframe");
@@ -208,6 +215,7 @@ function closeLightbox() {
 }
 
 lightbox.addEventListener("close", () => {
+  if (lightbox.open) return; // כבר נפתח סרטון אחר בינתיים
   lbStage.replaceChildren(); // עוצר את הניגון
   if (lbOpener) lbOpener.focus();
 });

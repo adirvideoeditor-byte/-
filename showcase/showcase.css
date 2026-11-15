@@ -247,9 +247,9 @@ em { font-style: normal; }
   display: flex; width: max-content;
   gap: clamp(12px, 2vw, 20px);
   padding-inline-end: clamp(12px, 2vw, 20px);
-  animation: slide 60s linear infinite;
+  animation: slide 96s linear infinite;
 }
-.wall__row--rev .wall__track { animation-direction: reverse; animation-duration: 70s; }
+.wall__row--rev .wall__track { animation-direction: reverse; animation-duration: 98s; }
 .wall:hover .wall__track,
 .wall:focus-within .wall__track { animation-play-state: paused; }
 
@@ -427,6 +427,7 @@ em { font-style: normal; }
   box-shadow: 0 0 0 1.5px oklch(0.66 0.20 320 / 0.7), 0 0 80px -10px var(--glow);
   animation: pop .35s var(--ease);
 }
+.lb--wide .lb__phone { height: auto; width: min(100%, 1100px, calc(78dvh * 16 / 9)); aspect-ratio: 16 / 9; }
 .lb__stage, .lb__stage video, .lb__stage iframe { width: 100%; height: 100%; display: block; border: 0; }
 .lb__stage video { object-fit: contain; background: #000; }
 .lb__cap { font-family: 'Rubik', sans-serif; font-weight: 600; color: var(--ink-dim); text-align: center; }
