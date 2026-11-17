@@ -12,14 +12,18 @@
 const WORKS = [
   { file: "david-bar-ilan",     name: "דוד בר אילן",   kind: "סרטון מקמפיין",     type: "ממומן" },
   { file: "gal-israeli",        name: "גל ישראלי",     kind: "5 דברים על אקנה",   type: "אורגני" },
+  { file: "dj-avi-singer",      name: "דיג'יי אבי צקול", kind: "הזמר הכי מקפיץ ברחבה", type: "אורגני" },
   { file: "marco-tender",       name: "מרקו",          kind: "רילס מתוך הרצאה",   type: "במה" },
   { file: "beit-alcohol",       name: "בית האלכוהול",  kind: "מודעה",             type: "ממומן" },
   { file: "moshe-kaplan",       name: "משה קפלן",      kind: "מלאך ושטן",         type: "אורגני" },
+  { file: "dj-avi-sound",       name: "דיג'יי אבי צקול", kind: "בדיקת סאונד לפני חתונה", type: "אורגני" },
   { file: "tamir-damari",       name: "תמיר דמרי",     kind: "המלצות מהסדנה",     type: "המלצות", wide: true },
   { file: "biro",               name: "בירו",          kind: "קטע סטנדאפ",        type: "במה" },
   { file: "ofer-zilberg",       name: "אופר זילברג",   kind: "רילס",              type: "אורגני" },
+  { file: "dj-avi-moments",     name: "דיג'יי אבי צקול", kind: "הרגעים שבשבילם אני דיג'יי", type: "אורגני" },
   { file: "geula",              name: "גאולה הדראי",   kind: "רילס",              type: "אורגני" },
   { file: "marco-testimonials", name: "מרקו",          kind: "סרטון המלצות",      type: "המלצות" },
+  { file: "dj-avi-early",       name: "דיג'יי אבי צקול", kind: "למה דיג'יי מגיע מוקדם", type: "אורגני" },
   { file: "marco-qa",           name: "מרקו",          kind: "שאלות ותשובות",     type: "אורגני" },
 ];
 
