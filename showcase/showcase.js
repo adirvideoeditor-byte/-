@@ -3,28 +3,27 @@
 // כדי להחליף סרטון: לערוך את שתי הרשימות כאן למטה. שום דבר אחר לא צריך לגעת.
 // ===================================================================
 
-// ─── סרטונים לדוגמה ───────────────────────────────────────────────
+// ─── סרטונים שנעשו ללקוחות ────────────────────────────────────────
+// רק עבודות ללקוחות. סרטונים של אדיר עצמו (אינסטגרם, מאחורי הקלעים) לא נכנסים לכאן.
 // file  = שם הקובץ בתיקיית media (בלי סיומת). צריך להיות שם:
 //         file.mp4 (הסרטון המלא), file_loop.mp4 (לופ שקט של 6 שניות), file.jpg (תמונה)
-// row   = באיזו שורה בקיר הסרטון מופיע (0 או 1)
+// type  = הסוג לסינון: "ממומן" / "אורגני" / "המלצות" / "במה"
 // wide  = true לסרטון רוחבי (16:9) - הנגן נפתח לרוחב
 const WORKS = [
-  { file: "david-bar-ilan",     name: "דוד בר אילן",     kind: "סרטון מקמפיין",    row: 0 },
-  { file: "marco-tender",       name: "מרקו",            kind: "רילס מתוך הרצאה",  row: 0 },
-  { file: "gal-israeli",        name: "גל ישראלי",       kind: "5 דברים על אקנה",  row: 0 },
-  { file: "beit-alcohol",       name: "בית האלכוהול",    kind: "מודעה ממומנת",     row: 0 },
-  { file: "moshe-kaplan",       name: "משה קפלן",        kind: "מלאך ושטן",        row: 0 },
-  { file: "adir-eda",           name: "אדיר צאנה",       kind: "רילס אורגני",      row: 0 },
-  { file: "biro",               name: "בירו",            kind: "קטע סטנדאפ",       row: 0 },
-  { file: "marco-testimonials", name: "מרקו",            kind: "סרטון המלצות",     row: 0 },
-  { file: "ofer-zilberg",       name: "אופר זילברג",     kind: "רילס",             row: 1 },
-  { file: "adir-ad",            name: "יום צילום",       kind: "מודעה ממומנת",     row: 1 },
-  { file: "tamir-damari",       name: "תמיר דמרי",       kind: "המלצות מהסדנה",    row: 1, wide: true },
-  { file: "geula",              name: "גאולה הדראי",     kind: "רילס אורגני",      row: 1 },
-  { file: "bts",                name: "מאחורי הקלעים",   kind: "סדרה לאינסטגרם",   row: 1 },
-  { file: "marco-qa",           name: "מרקו",            kind: "שאלות ותשובות",    row: 1 },
-  { file: "adir-organic",       name: "אדיר צאנה",       kind: "רילס אורגני",      row: 1 },
+  { file: "david-bar-ilan",     name: "דוד בר אילן",   kind: "סרטון מקמפיין",     type: "ממומן" },
+  { file: "gal-israeli",        name: "גל ישראלי",     kind: "5 דברים על אקנה",   type: "אורגני" },
+  { file: "marco-tender",       name: "מרקו",          kind: "רילס מתוך הרצאה",   type: "במה" },
+  { file: "beit-alcohol",       name: "בית האלכוהול",  kind: "מודעה",             type: "ממומן" },
+  { file: "moshe-kaplan",       name: "משה קפלן",      kind: "מלאך ושטן",         type: "אורגני" },
+  { file: "tamir-damari",       name: "תמיר דמרי",     kind: "המלצות מהסדנה",     type: "המלצות", wide: true },
+  { file: "biro",               name: "בירו",          kind: "קטע סטנדאפ",        type: "במה" },
+  { file: "ofer-zilberg",       name: "אופר זילברג",   kind: "רילס",              type: "אורגני" },
+  { file: "geula",              name: "גאולה הדראי",   kind: "רילס",              type: "אורגני" },
+  { file: "marco-testimonials", name: "מרקו",          kind: "סרטון המלצות",      type: "המלצות" },
+  { file: "marco-qa",           name: "מרקו",          kind: "שאלות ותשובות",     type: "אורגני" },
 ];
+
+const TYPE_LABELS = { "ממומן": "מודעות", "אורגני": "רילס אורגני", "המלצות": "סרטוני המלצות", "במה": "הרצאות ובמה" };
 
 // ─── המלצות וידאו (יוטיוב) ────────────────────────────────────────
 const TESTIMONIALS = [
@@ -34,8 +33,6 @@ const TESTIMONIALS = [
   { yt: "tXWfipS-_YU", name: "קורן צבר" },
   { yt: "i5ruP2Zhjz0", name: "טל גרמאי" },
 ];
-
-const TICKER = ["מודעות ממומנות", "רילס אורגני", "סרטוני המלצות", "ימי צילום", "הרצאות", "סטנדאפ", "מאחורי הקלעים"];
 
 // ─── וואטסאפ ──────────────────────────────────────────────────────
 // הדף נשלח ללידים שכבר בשיחה, אז הכפתור בסוף מחזיר אותם לוואטסאפ.
@@ -73,19 +70,56 @@ function playBadge() {
   return badge;
 }
 
-// ─── פס טקסט רץ ───────────────────────────────────────────────────
-(function buildTicker() {
-  const track = document.getElementById("ticker");
-  if (!track) return;
-  // פעמיים ברצף - כדי שהלולאה תהיה חלקה
-  for (let pass = 0; pass < 2; pass++) {
-    for (let rep = 0; rep < 2; rep++) {
-      TICKER.forEach((word) => track.appendChild(el("span", "", word)));
+// ─── מסך פתיחה: עמודות הפריימים ברקע ─────────────────────────────
+(function buildReel() {
+  const reel = document.getElementById("reel");
+  if (!reel) return;
+  const COLS = 3;
+  for (let c = 0; c < COLS; c++) {
+    const col = el("div", "reel__col");
+    const track = el("div", "reel__track");
+    const items = WORKS.filter((_, i) => i % COLS === c);
+    // פעמיים ברצף - כדי שהגלילה תהיה לולאה חלקה
+    for (let pass = 0; pass < 2; pass++) {
+      items.forEach((w) => {
+        const img = el("img");
+        img.src = `${MEDIA}${w.file}.jpg`;
+        img.alt = "";
+        img.decoding = "async";
+        track.appendChild(img);
+      });
     }
+    col.appendChild(track);
+    reel.appendChild(col);
   }
 })();
 
-// ─── קיר הסרטונים ─────────────────────────────────────────────────
+// ─── מסך פתיחה: קוד זמן רץ בעינית ────────────────────────────────
+(function timecode() {
+  const node = document.getElementById("timecode");
+  if (!node || reduceMotion) return;
+  const FPS = 25;
+  const pad = (n) => String(n).padStart(2, "0");
+  const start = performance.now();
+  let timer = 0;
+
+  function tick() {
+    const frames = Math.floor(((performance.now() - start) / 1000) * FPS);
+    const s = Math.floor(frames / FPS);
+    node.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}:${pad(frames % FPS)}`;
+  }
+  function run() { if (!timer) timer = setInterval(tick, 1000 / FPS); }
+  function halt() { clearInterval(timer); timer = 0; }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => (entry.isIntersecting ? run() : halt())).observe(node);
+  } else {
+    run();
+  }
+  document.addEventListener("visibilitychange", () => (document.hidden ? halt() : run()));
+})();
+
+// ─── רשת העבודות ──────────────────────────────────────────────────
 const loopObserver = "IntersectionObserver" in window
   ? new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -97,14 +131,14 @@ const loopObserver = "IntersectionObserver" in window
           video.pause();
         }
       });
-    }, { rootMargin: "120px" })
+    }, { rootMargin: "100px" })
   : null;
 
-function workCard(work, isClone) {
+function workCard(work) {
   const card = el("button", "work");
   card.type = "button";
+  card.dataset.type = work.type;
   card.setAttribute("aria-label", `ניגון: ${work.name}, ${work.kind}`);
-  if (isClone) { card.tabIndex = -1; card.setAttribute("aria-hidden", "true"); }
 
   if (reduceMotion || !loopObserver) {
     const img = el("img");
@@ -125,6 +159,7 @@ function workCard(work, isClone) {
     loopObserver.observe(video);
   }
 
+  card.appendChild(el("span", "work__tag", TYPE_LABELS[work.type] || work.type));
   card.appendChild(playBadge());
   const meta = el("span", "work__meta");
   meta.appendChild(el("span", "work__name", work.name));
@@ -138,42 +173,81 @@ function workCard(work, isClone) {
   return card;
 }
 
-(function buildWall() {
-  document.querySelectorAll(".wall__track").forEach((track) => {
-    const row = Number(track.dataset.row);
-    const items = WORKS.filter((w) => w.row === row);
-    items.forEach((w) => track.appendChild(workCard(w, false)));
-    // עותק שני של השורה - בשביל לולאה אינסופית (בלי תנועה אין בו צורך)
-    if (!reduceMotion) items.forEach((w) => track.appendChild(workCard(w, true)));
+(function buildGrid() {
+  const grid = document.getElementById("grid");
+  const chips = document.getElementById("chips");
+  if (!grid) return;
+  const cards = WORKS.map((w) => grid.appendChild(workCard(w)));
+  if (!chips) return;
+
+  const types = Object.keys(TYPE_LABELS).filter((t) => WORKS.some((w) => w.type === t));
+  const options = [{ type: "", label: "הכל", count: WORKS.length }]
+    .concat(types.map((t) => ({ type: t, label: TYPE_LABELS[t], count: WORKS.filter((w) => w.type === t).length })));
+
+  options.forEach((opt, i) => {
+    const chip = el("button", "chip", opt.label);
+    chip.type = "button";
+    chip.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    chip.appendChild(el("span", "", String(opt.count)));
+    chip.addEventListener("click", () => {
+      chips.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
+      cards.forEach((card) => { card.hidden = Boolean(opt.type) && card.dataset.type !== opt.type; });
+    });
+    chips.appendChild(chip);
   });
 })();
 
-// ─── מניפת ההמלצות ────────────────────────────────────────────────
-(function buildFan() {
-  const fan = document.getElementById("fan");
-  if (!fan) return;
-  TESTIMONIALS.forEach((t) => {
-    const card = el("button", "tcard");
-    card.type = "button";
-    card.setAttribute("aria-label", `ניגון המלצה: ${t.name}`);
+// ─── המלצות: רשימת שמות + מסך ────────────────────────────────────
+(function buildVoices() {
+  const list = document.getElementById("voices-list");
+  const stage = document.getElementById("voices-stage");
+  const img = document.getElementById("voices-img");
+  const nameEl = document.getElementById("voices-name");
+  if (!list || !stage || !TESTIMONIALS.length) return;
+  let current = -1;
+  const rows = [];
 
-    const img = el("img");
-    img.src = `https://i.ytimg.com/vi/${t.yt}/oardefault.jpg`;
-    img.alt = "";
-    img.loading = "lazy";
+  function thumb(t) { return `https://i.ytimg.com/vi/${t.yt}/oardefault.jpg`; }
+
+  function select(i) {
+    if (i === current) return;
+    current = i;
+    const t = TESTIMONIALS[i];
+    rows.forEach((row, n) => row.classList.toggle("is-on", n === i));
+    nameEl.textContent = t.name;
+    stage.setAttribute("aria-label", `ניגון ההמלצה של ${t.name}`);
+    img.classList.add("is-swapping");
+    const next = new Image();
+    const show = (src) => { img.src = src; img.classList.remove("is-swapping"); };
+    next.onload = () => { if (current === i) show(next.src); };
     // אם אין תמונה אנכית - נופלים לתמונה הרגילה של יוטיוב
-    img.addEventListener("error", () => { img.src = `https://i.ytimg.com/vi/${t.yt}/hqdefault.jpg`; }, { once: true });
-    card.appendChild(img);
+    next.onerror = () => { if (current === i) show(`https://i.ytimg.com/vi/${t.yt}/hqdefault.jpg`); };
+    next.src = thumb(t);
+  }
 
-    card.appendChild(el("span", "tcard__tag", "המלצה"));
-    card.appendChild(playBadge());
-    card.appendChild(el("span", "tcard__name", t.name));
+  function play(i, opener) {
+    const t = TESTIMONIALS[i];
+    openLightbox({ kind: "yt", id: t.yt, caption: `${t.name} · המלצה`, opener });
+  }
 
-    card.addEventListener("click", () => openLightbox({
-      kind: "yt", id: t.yt, caption: `${t.name} · המלצה`, opener: card,
-    }));
-    fan.appendChild(card);
+  TESTIMONIALS.forEach((t, i) => {
+    const row = el("button", "voice");
+    row.type = "button";
+    row.setAttribute("aria-label", `ניגון ההמלצה של ${t.name}`);
+    row.appendChild(el("span", "voice__num", String(i + 1).padStart(2, "0")));
+    row.appendChild(el("span", "voice__name", t.name));
+    const go = el("span", "voice__go");
+    go.appendChild(iconEl("i-play"));
+    row.appendChild(go);
+    row.addEventListener("pointerenter", () => select(i));
+    row.addEventListener("focus", () => select(i));
+    row.addEventListener("click", () => { select(i); play(i, row); });
+    rows.push(row);
+    list.appendChild(row);
   });
+
+  stage.addEventListener("click", () => play(current, stage));
+  select(0);
 })();
 
 // ─── נגן מסך מלא ──────────────────────────────────────────────────
@@ -217,7 +291,7 @@ function closeLightbox() {
 lightbox.addEventListener("close", () => {
   if (lightbox.open) return; // כבר נפתח סרטון אחר בינתיים
   lbStage.replaceChildren(); // עוצר את הניגון
-  if (lbOpener) lbOpener.focus();
+  if (lbOpener) lbOpener.focus({ preventScroll: true });
 });
 document.getElementById("lb-close").addEventListener("click", closeLightbox);
 lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
@@ -233,125 +307,8 @@ lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLigh
     entries.forEach((entry) => {
       if (entry.isIntersecting) { entry.target.classList.add("in"); io.unobserve(entry.target); }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.12 });
   nodes.forEach((n) => io.observe(n));
-})();
-
-// ─── ענן החלקיקים במסך הפתיחה ─────────────────────────────────────
-(function particles() {
-  const canvas = document.getElementById("particles");
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext("2d");
-  const hero = canvas.parentElement;
-
-  // כחול > סגול > ורוד, כמו גרדיאנט המותג
-  const STOPS = [[76, 141, 255], [168, 85, 247], [255, 92, 170]];
-  function colorAt(t) {
-    const seg = t < 0.5 ? 0 : 1;
-    const k = t < 0.5 ? t * 2 : (t - 0.5) * 2;
-    const a = STOPS[seg], b = STOPS[seg + 1];
-    return [0, 1, 2].map((i) => Math.round(a[i] + (b[i] - a[i]) * k));
-  }
-
-  let w = 0, h = 0, dpr = 1, dots = [], running = false, raf = 0;
-  const pointer = { x: -9999, y: -9999 };
-
-  function gauss() { // התפלגות פעמון בקירוב
-    return (Math.random() + Math.random() + Math.random() + Math.random() - 2) / 2;
-  }
-
-  function build() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = hero.clientWidth; h = hero.clientHeight;
-    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    const mobile = w < 760;
-    const count = mobile ? 700 : Math.min(2600, Math.round(w * 1.9));
-    const spread = mobile ? Math.max(w, h) * 0.55 : Math.max(w * 0.36, h * 0.62);
-    dots = [];
-    for (let i = 0; i < count; i++) {
-      const gx = gauss(), gy = gauss();
-      const dist = Math.min(1, Math.hypot(gx, gy) * 1.3);
-      const rgb = colorAt(Math.min(1, Math.max(0, 0.5 + gx * 0.9 + (Math.random() - 0.5) * 0.3)));
-      dots.push({
-        ox: gx * spread, oy: gy * spread,              // מיקום ביחס למרכז הענן
-        r: (mobile ? 1 : 1.3) + Math.random() * 2.6 * (1 - dist * 0.5),
-        a: (mobile ? 0.5 : 0.95) * (0.4 + Math.random() * 0.6) * (1 - dist * 0.45),
-        ph: Math.random() * Math.PI * 2,
-        sp: 0.25 + Math.random() * 0.6,
-        amp: 6 + Math.random() * 16,
-        px: 0, py: 0,                                  // דחיפה מהעכבר
-        fill: `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`,
-      });
-    }
-  }
-
-  function frame(ms) {
-    const t = ms / 1000;
-    const mobile = w < 760;
-    // בדסקטופ הענן יושב בצד שמאל (הטקסט בימין), בנייד מאחורי הכל
-    const cx = mobile ? w * 0.5 : w * 0.27;
-    const cy = mobile ? h * 0.36 : h * 0.5;
-    const rot = t * 0.035, cos = Math.cos(rot), sin = Math.sin(rot);
-
-    ctx.clearRect(0, 0, w, h);
-    for (let i = 0; i < dots.length; i++) {
-      const d = dots[i];
-      let x = cx + d.ox * cos - d.oy * sin + Math.cos(t * d.sp + d.ph) * d.amp;
-      let y = cy + d.ox * sin + d.oy * cos + Math.sin(t * d.sp * 1.3 + d.ph) * d.amp;
-
-      const dx = x - pointer.x, dy = y - pointer.y;
-      const dist2 = dx * dx + dy * dy;
-      if (dist2 < 19600) { // 140px
-        const dist = Math.sqrt(dist2) || 1;
-        const force = (1 - dist / 140) * 3.2;
-        d.px += (dx / dist) * force; d.py += (dy / dist) * force;
-      }
-      d.px *= 0.92; d.py *= 0.92;
-      x += d.px; y += d.py;
-
-      ctx.globalAlpha = d.a * (0.7 + 0.3 * Math.sin(t * 1.4 + d.ph));
-      ctx.fillStyle = d.fill;
-      ctx.beginPath();
-      ctx.arc(x, y, d.r, 0, 6.2832);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    if (running) raf = requestAnimationFrame(frame);
-  }
-
-  function start() { if (!running && !reduceMotion) { running = true; raf = requestAnimationFrame(frame); } }
-  function stop() { running = false; cancelAnimationFrame(raf); }
-
-  build();
-  if (reduceMotion) { frame(0); return; }
-
-  hero.addEventListener("pointermove", (e) => {
-    const box = canvas.getBoundingClientRect();
-    pointer.x = e.clientX - box.left; pointer.y = e.clientY - box.top;
-  });
-  hero.addEventListener("pointerleave", () => { pointer.x = pointer.y = -9999; });
-
-  let resizeTimer = 0, lastW = w;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      // בנייד סרגל הכתובת משנה את הגובה בגלילה - לא בונים מחדש בגלל זה
-      if (hero.clientWidth !== lastW) { lastW = hero.clientWidth; build(); }
-    }, 180);
-  });
-
-  // לא מציירים כשמסך הפתיחה לא נראה או כשהלשונית ברקע
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop())).observe(hero);
-  } else {
-    start();
-  }
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stop();
-    else if (hero.getBoundingClientRect().bottom > 0) start();
-  });
 })();
 
 // ─── כפתור וואטסאפ במקום הטופס ────────────────────────────────────
