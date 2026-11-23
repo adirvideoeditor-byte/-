@@ -12,17 +12,28 @@
 const WORKS = [
   { file: "david-bar-ilan",     name: "דוד בר אילן",   kind: "סרטון מקמפיין",     type: "ממומן" },
   { file: "gal-israeli",        name: "גל ישראלי",     kind: "5 דברים על אקנה",   type: "אורגני" },
+  { file: "nadav-4-steps", name: "נדב נאגרי", kind: "4 שלבים לגדילה", type: "אורגני" },
+  { file: "rita-2", name: "ריטה", kind: "רילס", type: "אורגני" },
   { file: "dj-avi-singer",      name: "דיג'יי אבי צקול", kind: "הזמר הכי מקפיץ ברחבה", type: "אורגני" },
   { file: "marco-tender",       name: "מרקו",          kind: "רילס מתוך הרצאה",   type: "במה" },
+  { file: "koren-father-son", name: "קורן צבר", kind: "אבא ובן", type: "אורגני" },
+  { file: "tal-testimonial-thailand", name: "טל, סוכן נסיעות", kind: "המלצת לקוח מתאילנד", type: "המלצות" },
   { file: "moshe-kaplan",       name: "משה קפלן",      kind: "מלאך ושטן",         type: "אורגני" },
   { file: "tamir-damari",       name: "תמיר דמרי",     kind: "המלצות מהסדנה",     type: "המלצות", wide: true },
+  { file: "dror-3", name: "דרור סמאי", kind: "רילס", type: "אורגני" },
+  { file: "elad-small-step", name: "אלעד", kind: "צעד אחד קטן", type: "אורגני" },
   { file: "biro",               name: "בירו",          kind: "קטע סטנדאפ",        type: "במה" },
   { file: "ofer-zilberg",       name: "אופר זילברג",   kind: "רילס",              type: "אורגני" },
+  { file: "rita-1", name: "ריטה", kind: "רילס", type: "אורגני" },
+  { file: "nadav-3-questions", name: "נדב נאגרי", kind: "3 שאלות", type: "אורגני" },
   { file: "dj-avi-moments",     name: "דיג'יי אבי צקול", kind: "הרגעים שבשבילם אני דיג'יי", type: "אורגני" },
   { file: "geula",              name: "גאולה הדראי",   kind: "רילס",              type: "אורגני" },
+  { file: "dror-7", name: "דרור סמאי", kind: "רילס", type: "אורגני" },
+  { file: "tal-testimonial-mali", name: "טל, סוכן נסיעות", kind: "המלצת לקוח", type: "המלצות" },
   { file: "marco-testimonials", name: "מרקו",          kind: "סרטון המלצות",      type: "המלצות" },
   { file: "dj-avi-early",       name: "דיג'יי אבי צקול", kind: "למה דיג'יי מגיע מוקדם", type: "אורגני" },
   { file: "marco-qa",           name: "מרקו",          kind: "שאלות ותשובות",     type: "אורגני" },
+  { file: "dror-4", name: "דרור סמאי", kind: "רילס", type: "אורגני" },
 ];
 
 const TYPE_LABELS = { "ממומן": "מודעות", "אורגני": "רילס אורגני", "המלצות": "סרטוני המלצות", "במה": "הרצאות ובמה" };
