@@ -1,4 +1,4 @@
-// Vercel Serverless Function: קליטת לידים -> Airtable
+// Vercel Serverless Function: קליטת לידים -> Airtable + CRM (התראה לטלגרם)
 // POST /api/lead
 //
 // הוחלף כאן Cloudflare Worker שישב על דומיין נפרד. הפונקציה הזו רצה על אותו
@@ -100,6 +100,27 @@ async function createLead(lead) {
   }
 }
 
+// ── CRM ───────────────────────────────────────────────────────────────────────
+// כל ליד עובר גם ל-CRM, והוא שולח לאדיר התראה לטלגרם מיד.
+// מחזיר false אם החיבור לא הוגדר, וזורק שגיאה אם ה-CRM דחה את הליד.
+const CRM_INTAKE_URL =
+  process.env.CRM_INTAKE_URL || "https://crm-leads-three-blond.vercel.app/api/leads/intake";
+
+async function forwardToCrm(lead) {
+  const secret = (process.env.CRM_INTAKE_SECRET || "").trim();
+  if (!secret) return false;
+
+  const res = await fetch(CRM_INTAKE_URL, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${secret}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ name: lead.name, phone: lead.phone, email: lead.email, details: lead.source }),
+    // לא מעכבים את הגולש אם ה-CRM איטי
+    signal: AbortSignal.timeout(7000),
+  });
+  if (!res.ok) throw new Error(`crm intake failed: ${res.status}`);
+  return true;
+}
+
 function log(ip, reason) {
   console.log(JSON.stringify({ ts: new Date().toISOString(), ip, reason }));
 }
@@ -170,11 +191,21 @@ export default async function handler(req, res) {
       log(ip, "duplicate phone");
       return res.status(200).json({ status: "duplicate" });
     }
-    await createLead(lead);
+    // שני היעדים במקביל: תקלה באחד לא מפילה את השני, והליד לא הולך לאיבוד
+    const [airtable, crm] = await Promise.allSettled([createLead(lead), forwardToCrm(lead)]);
+    if (airtable.status === "rejected") log(ip, `airtable error: ${airtable.reason?.message}`);
+    if (crm.status === "rejected") log(ip, `crm error: ${crm.reason?.message}`);
+
+    const savedInCrm = crm.status === "fulfilled" && crm.value === true;
+    if (airtable.status === "rejected" && !savedInCrm) {
+      // הליד לא נשמר בשום מקום - משחררים את הטלפון כדי שניסיון חוזר לא ייחשב כפילות
+      seenPhones.delete(lead.phone);
+      return res.status(502).json({ status: "error", message: "could not save lead" });
+    }
     log(ip, "lead saved");
     return res.status(200).json({ status: "ok" });
   } catch (err) {
-    log(ip, `airtable error: ${err.message}`);
+    log(ip, `unexpected error: ${err.message}`);
     return res.status(502).json({ status: "error", message: "could not save lead" });
   }
 }
