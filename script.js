@@ -158,7 +158,7 @@ function onLeadSuccess(payload) {
   // המרה גם על שליחה שנכשלה, ואז המספרים ב-Meta לא היו תואמים ל-Airtable.
   // ה-value הוא מחיר ההצעה, כדי ש-Meta תוכל לבצע אופטימיזציה לפי שווי.
   funnel.sent = true;
-  track("Lead", { content_name: "יום צילום", value: 1499, currency: "ILS" }, true);
+  track("Lead", { content_name: "יום צילום", value: 2400, currency: "ILS" }, true);
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────────
